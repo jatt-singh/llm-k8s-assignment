@@ -40,6 +40,7 @@ die()  { printf '\033[1;31mFAIL: %s\033[0m\n' "$*" >&2; exit 1; }
 
 need() {
   local missing=()
+  local t
   for t in "$@"; do command -v "$t" >/dev/null || missing+=("$t"); done
   [[ ${#missing[@]} -eq 0 ]] || die "missing tools: ${missing[*]} (see README prerequisites)"
 }
@@ -56,6 +57,7 @@ image_tag() { echo "$IMAGE_TAG"; }
 
 all_images() {
   local tag; tag="$(image_tag)"
+  local s
   for s in "${SERVICES[@]}" llm; do echo "llmstack/$s:$tag"; done
 }
 
@@ -108,8 +110,9 @@ lint() {
       && TF_DATA_DIR=.terraform-validate terraform validate -no-color >/dev/null )
   ok "terraform fmt / validate"
 
-  for env in dev prod; do
-    helm lint "$CHART" -f "$CHART/values-$env.yaml" --set image.tag=lint \
+  local e
+  for e in dev prod; do
+    helm lint "$CHART" -f "$CHART/values-$e.yaml" --set image.tag=lint \
       --set "ingress.allowedSourceRanges={127.0.0.1/32}" >/dev/null
   done
   ok "helm lint (dev, prod)"
@@ -140,6 +143,7 @@ build() {
   log "Build images (tag $(image_tag))"
   need docker
   local tag; tag="$(image_tag)"
+  local s
   for s in "${SERVICES[@]}"; do
     docker build --quiet --build-arg "SERVICE=$s" -t "llmstack/$s:$tag" "$ROOT/services" >/dev/null
     ok "llmstack/$s:$tag"
@@ -160,6 +164,7 @@ scan() {
     *) die "SEVERITY_THRESHOLD must be CRITICAL, HIGH or MEDIUM" ;;
   esac
 
+  local img
   for img in $(all_images) "$TOOLS_IMAGE"; do
     local name; name="$(echo "$img" | sed -E 's#^llmstack/##; s#[:@/].*##')"
     [[ "$img" == "$TOOLS_IMAGE" ]] && name="tools-curl"
@@ -182,6 +187,7 @@ sbom() {
   log "SBOM (SPDX JSON)"
   need syft
   mkdir -p "$REPORTS/sbom"
+  local img
   for img in $(all_images); do
     local name; name="$(echo "$img" | sed -E 's#^llmstack/##; s#:.*##')"
     syft -q "$img" -o "spdx-json=$REPORTS/sbom/$name.spdx.json"
@@ -195,6 +201,7 @@ sbom() {
     echo "syft: $(syft version 2>/dev/null | awk '/^Version/{print $2}')"
     echo "severity_threshold: $SEVERITY_THRESHOLD"
     echo "images:"
+    local img
     for img in $(all_images) "$TOOLS_IMAGE"; do
       echo "  - $img $(docker image inspect --format '{{.Id}}' "$img" 2>/dev/null || true)"
     done
@@ -242,10 +249,15 @@ cmd_destroy() {
 }
 
 allowed_cidrs_values() {
-  # Default: the address Docker Desktop uses when forwarding the laptop's
-  # 127.0.0.1:<port> into the Kind node (see docs/RUNBOOK.md for how to find it).
-  local cidrs="${ALLOWED_CIDRS:-$(cat "$ROOT/.kube/allowed-cidrs-$1" 2>/dev/null || echo "")}"
-  [[ -n "$cidrs" ]] || die "ALLOWED_CIDRS not set and no detected value; run: scripts/ci.sh detect-source-ip $1"
+  # Precedence: ALLOWED_CIDRS env var > value saved by detect-source-ip > auto-detect now.
+  # The detected value is the address Docker uses when forwarding the laptop's
+  # 127.0.0.1:<port> into the Kind node (see docs/RUNBOOK.md §3).
+  local cidrs="${ALLOWED_CIDRS:-}"
+  if [[ -z "$cidrs" && ! -f "$ROOT/.kube/allowed-cidrs-$1" ]]; then
+    cmd_detect_source_ip "$1" >&2
+  fi
+  [[ -n "$cidrs" ]] || cidrs="$(cat "$ROOT/.kube/allowed-cidrs-$1" 2>/dev/null || true)"
+  [[ -n "$cidrs" ]] || die "no allowlist: set ALLOWED_CIDRS or run scripts/ci.sh detect-source-ip $1"
   echo "{${cidrs}}"
 }
 
@@ -257,6 +269,7 @@ cmd_deploy() {
   kind get clusters 2>/dev/null | grep -qx "$cluster" || die "cluster $cluster not found; run: scripts/ci.sh apply $env"
 
   log "Load images into Kind ($cluster)"
+  local img
   for img in $(all_images); do
     kind load docker-image "$img" --name "$cluster" >/dev/null
     ok "$img"
@@ -331,7 +344,11 @@ cmd_status() {
 # Find which source address the ingress sees for requests from this laptop.
 cmd_detect_source_ip() {
   local env="$1"; check_env "$env"
-  local ip
+  local ip host port
+  host="$(tfvar "$env" hostname)"; port="$(tfvar "$env" https_host_port)"
+  # One request so Traefik writes an access-log line with our source address.
+  curl -sk -o /dev/null --max-time 10 --resolve "$host:$port:127.0.0.1" "https://$host:$port/" || true
+  sleep 2
   ip="$(kube "$env" kubectl -n ingress logs deploy/traefik --tail=200 2>/dev/null \
         | grep -o '"ClientHost":"[^"]*"' | tail -1 | cut -d'"' -f4)"
   [[ -n "$ip" ]] || die "no access log line found; send one request to the ingress first"

@@ -1,0 +1,12 @@
+generated: 2026-10-21T06:12:46Z
+image_tag: 4fe430b35ec9
+trivy: Version: 0.76.0
+trivy_db: 2
+syft: 1.55.0
+severity_threshold: CRITICAL
+images:
+  - llmstack/gateway:4fe430b35ec9 sha256:c330722d61459f60b41822d7dec1acedace7537d9c17fe4bf755e2be11b26e8e
+  - llmstack/catalog:4fe430b35ec9 sha256:3d0ff2b8d82aa73947e9686088980006d7c868e3ac5ec0dc015f5c2d55ceac61
+  - llmstack/assistant:4fe430b35ec9 sha256:d7260425199ce35ec2f7203068db08572d254f64c20ad6b78d4eb3d50cc34926
+  - llmstack/llm:4fe430b35ec9 sha256:5ef583638e365f3421b975064620de81114b75bcbe7f9fe884536d365a5ae3c4
+  - curlimages/curl:8.22.0@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777 sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777

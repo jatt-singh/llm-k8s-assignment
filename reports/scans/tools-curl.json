@@ -3,40 +3,43 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a15cf9-f978-7737-a08d-8e273617696e",
-  "CreatedAt": "2026-10-21T11:10:48.632478+05:30",
-  "ArtifactID": "sha256:90302af84feb74d5e15951b4cfa68067e68a51577cab97db5e0c794894cf1fcb",
+  "ReportID": "01a15d17-1207-7849-9744-c8bd8c43b698",
+  "CreatedAt": "2026-10-21T11:42:35.463544+05:30",
+  "ArtifactID": "sha256:0bbfc67bbf7036494bb61353fd1650d28fdb1f0b7850765ded72e82e4a467bec",
   "ArtifactName": "curlimages/curl:8.22.0@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 24249344,
+    "Size": 26134528,
     "OS": {
       "Family": "alpine",
       "Name": "3.24.1"
     },
-    "ImageID": "sha256:370bbf807caa020e727500e6b766909ea247ea1b93d2823d0ebb142af498af79",
+    "ImageID": "sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777",
     "DiffIDs": [
-      "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+      "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
+    ],
+    "RepoTags": [
+      "curlimages/curl@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777"
     ],
     "RepoDigests": [
       "curlimages/curl@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777"
     ],
     "Reference": "curlimages/curl@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777",
     "ImageConfig": {
-      "architecture": "amd64",
-      "created": "2026-09-02T09:04:12.639677132Z",
+      "architecture": "arm64",
+      "created": "2026-09-02T09:32:48.079548369Z",
       "history": [
         {
-          "created": "2026-09-02T09:04:12.735191719Z",
+          "created": "2026-09-02T09:32:48Z",
           "created_by": "/bin/sh",
-          "comment": "FROM localhost/curl-base-linux-amd64:8.22.0"
+          "comment": "FROM localhost/curl-base-linux-arm64:8.22.0"
         }
       ],
       "os": "linux",
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+          "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
         ]
       },
       "config": {
@@ -51,10 +54,10 @@
           "CURL_CA_BUNDLE=/cacert.pem"
         ],
         "Labels": {
-          "docker.cmd": "podman run -it quay.io/curl/curl-linux-amd64:8.22.0:8.22.0",
+          "docker.cmd": "podman run -it quay.io/curl/curl-linux-arm64:8.22.0:8.22.0",
           "io.buildah.version": "1.33.7",
           "maintainer": "James Fuller \u003cjim.fuller@webcomposite.com\u003e",
-          "name": "curl-linux-amd64:8.22.0",
+          "name": "curl-linux-arm64:8.22.0",
           "org.opencontainers.image.description": "minimal image for curl",
           "org.opencontainers.image.licenses": "MIT",
           "org.opencontainers.image.source": "https://github.com/curl/curl-container",
@@ -66,9 +69,9 @@
     },
     "Layers": [
       {
-        "Size": 24249344,
-        "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-        "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+        "Size": 26134528,
+        "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+        "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
       }
     ]
   },
@@ -82,11 +85,11 @@
           "ID": "alpine-baselayout@3.7.2-r1",
           "Name": "alpine-baselayout",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/alpine-baselayout@3.7.2-r1?arch=x86_64\u0026distro=3.24.1",
-            "UID": "1b9c543300f8073e"
+            "PURL": "pkg:apk/alpine/alpine-baselayout@3.7.2-r1?arch=aarch64\u0026distro=3.24.1",
+            "UID": "304a3a90fc88fa6b"
           },
           "Version": "3.7.2-r1",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "alpine-baselayout",
           "SrcVersion": "3.7.2-r1",
           "Licenses": [
@@ -98,10 +101,10 @@
             "busybox-binsh@1.37.0-r31"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:f0fcfdc2f4da058af6473bc45c4eab62916225b2",
+          "Digest": "sha1:ee13a18ee7e29d75872017403d59c0484dacd963",
           "InstalledFiles": [
             "etc/motd",
             "etc/crontabs/root",
@@ -123,11 +126,11 @@
           "ID": "alpine-baselayout-data@3.7.2-r1",
           "Name": "alpine-baselayout-data",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/alpine-baselayout-data@3.7.2-r1?arch=x86_64\u0026distro=3.24.1",
-            "UID": "fcc3cd90122d8aa7"
+            "PURL": "pkg:apk/alpine/alpine-baselayout-data@3.7.2-r1?arch=aarch64\u0026distro=3.24.1",
+            "UID": "9107750a7f29a381"
           },
           "Version": "3.7.2-r1",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "alpine-baselayout",
           "SrcVersion": "3.7.2-r1",
           "Licenses": [
@@ -135,10 +138,10 @@
           ],
           "Maintainer": "Natanael Copa \u003cncopa@alpinelinux.org\u003e",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:c6f9bded17d844b6f1b0bb5766d2c35c0d5c8508",
+          "Digest": "sha1:3337c83d21c8eb114e0d4bb275e561dd3493bdb8",
           "InstalledFiles": [
             "etc/fstab",
             "etc/group",
@@ -162,11 +165,11 @@
           "ID": "alpine-keys@2.6-r0",
           "Name": "alpine-keys",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/alpine-keys@2.6-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "cb1f6c8fa74713e0"
+            "PURL": "pkg:apk/alpine/alpine-keys@2.6-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "fd9daa4d0a52a3c0"
           },
           "Version": "2.6-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "alpine-keys",
           "SrcVersion": "2.6-r0",
           "Licenses": [
@@ -174,14 +177,13 @@
           ],
           "Maintainer": "Natanael Copa \u003cncopa@alpinelinux.org\u003e",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:d8d6b80e53c059a77e4915da78ba964f3ffea240",
+          "Digest": "sha1:6440d281ac88714d96ea12641cc6ab93cdec1b8c",
           "InstalledFiles": [
-            "etc/apk/keys/alpine-devel@lists.alpinelinux.org-4a6a0840.rsa.pub",
-            "etc/apk/keys/alpine-devel@lists.alpinelinux.org-5261cecb.rsa.pub",
-            "etc/apk/keys/alpine-devel@lists.alpinelinux.org-6165ee59.rsa.pub",
+            "etc/apk/keys/alpine-devel@lists.alpinelinux.org-58199dcc.rsa.pub",
+            "etc/apk/keys/alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
             "usr/share/apk/keys/alpine-devel@lists.alpinelinux.org-4a6a0840.rsa.pub",
             "usr/share/apk/keys/alpine-devel@lists.alpinelinux.org-5243ef4b.rsa.pub",
             "usr/share/apk/keys/alpine-devel@lists.alpinelinux.org-524d27bb.rsa.pub",
@@ -227,11 +229,11 @@
           "ID": "alpine-release@3.24.1-r0",
           "Name": "alpine-release",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/alpine-release@3.24.1-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "6cfad6f36e1f31aa"
+            "PURL": "pkg:apk/alpine/alpine-release@3.24.1-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "b55d484bf9f095bf"
           },
           "Version": "3.24.1-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "alpine-base",
           "SrcVersion": "3.24.1-r0",
           "Licenses": [
@@ -242,10 +244,10 @@
             "alpine-keys@2.6-r0"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:bc6912a25cdc7733e0035ed509eceaa4026946e3",
+          "Digest": "sha1:b2b4d877c21eb6bd9985936a268383610b83e675",
           "InstalledFiles": [
             "etc/alpine-release",
             "etc/issue",
@@ -259,11 +261,11 @@
           "ID": "apk-tools@3.0.8-r0",
           "Name": "apk-tools",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/apk-tools@3.0.8-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "5c76cd931e2a8e18"
+            "PURL": "pkg:apk/alpine/apk-tools@3.0.8-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "488b8d2f273de8c6"
           },
           "Version": "3.0.8-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "apk-tools",
           "SrcVersion": "3.0.8-r0",
           "Licenses": [
@@ -278,10 +280,10 @@
             "zlib@1.3.2-r0"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:786130a8f2d3ac69fc316118757b7e8151b8b8c3",
+          "Digest": "sha1:11f39e6c92ad589c04f7b3bc4da8ebed186efbca",
           "InstalledFiles": [
             "sbin/apk"
           ],
@@ -291,11 +293,11 @@
           "ID": "brotli-libs@1.2.0-r1",
           "Name": "brotli-libs",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/brotli-libs@1.2.0-r1?arch=x86_64\u0026distro=3.24.1",
-            "UID": "34680ab8e4de744b"
+            "PURL": "pkg:apk/alpine/brotli-libs@1.2.0-r1?arch=aarch64\u0026distro=3.24.1",
+            "UID": "c5474879acdf19ef"
           },
           "Version": "1.2.0-r1",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "brotli",
           "SrcVersion": "1.2.0-r1",
           "Licenses": [
@@ -306,10 +308,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:82f881516c045f06f22d7dc0a83cc64ca554ef10",
+          "Digest": "sha1:8ead4b39dbeaeb6c2877bf17e1d653cf629e257e",
           "InstalledFiles": [
             "usr/lib/libbrotlicommon.so.1",
             "usr/lib/libbrotlicommon.so.1.2.0",
@@ -324,11 +326,11 @@
           "ID": "busybox@1.37.0-r31",
           "Name": "busybox",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/busybox@1.37.0-r31?arch=x86_64\u0026distro=3.24.1",
-            "UID": "771020c43c8440bf"
+            "PURL": "pkg:apk/alpine/busybox@1.37.0-r31?arch=aarch64\u0026distro=3.24.1",
+            "UID": "ab2056d6943a8702"
           },
           "Version": "1.37.0-r31",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "busybox",
           "SrcVersion": "1.37.0-r31",
           "Licenses": [
@@ -339,10 +341,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:b5405ebc02f7dd8be95b6265c54b243d5456ab8f",
+          "Digest": "sha1:71cffc2981f2d54b3937c25be2f5169b3fb04532",
           "InstalledFiles": [
             "bin/busybox",
             "etc/securetty",
@@ -358,11 +360,11 @@
           "ID": "busybox-binsh@1.37.0-r31",
           "Name": "busybox-binsh",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/busybox-binsh@1.37.0-r31?arch=x86_64\u0026distro=3.24.1",
-            "UID": "1ec8a3d5d2b63297"
+            "PURL": "pkg:apk/alpine/busybox-binsh@1.37.0-r31?arch=aarch64\u0026distro=3.24.1",
+            "UID": "dd2aa04cf600f874"
           },
           "Version": "1.37.0-r31",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "busybox",
           "SrcVersion": "1.37.0-r31",
           "Licenses": [
@@ -373,10 +375,10 @@
             "busybox@1.37.0-r31"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:5cbd14acc6f1804c5bac6c77dc2c492f010b0fc7",
+          "Digest": "sha1:6b1f7722a3e7bb97d04e8ef906fd72c0667ba5d0",
           "InstalledFiles": [
             "bin/sh"
           ],
@@ -386,11 +388,11 @@
           "ID": "c-ares@1.34.8-r0",
           "Name": "c-ares",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/c-ares@1.34.8-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "4f18515d5a0852d6"
+            "PURL": "pkg:apk/alpine/c-ares@1.34.8-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "8077ef20118324d3"
           },
           "Version": "1.34.8-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "c-ares",
           "SrcVersion": "1.34.8-r0",
           "Licenses": [
@@ -401,10 +403,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:640a28ff6245f701d464fba53a05b1bc657c37a7",
+          "Digest": "sha1:a711166934c984960df23534ec9f4044dc030285",
           "InstalledFiles": [
             "usr/lib/libcares.so.2",
             "usr/lib/libcares.so.2.19.7"
@@ -415,11 +417,11 @@
           "ID": "ca-certificates-bundle@20260611-r0",
           "Name": "ca-certificates-bundle",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/ca-certificates-bundle@20260611-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "20337c2ea28bef28"
+            "PURL": "pkg:apk/alpine/ca-certificates-bundle@20260611-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "97e3214914ec1aac"
           },
           "Version": "20260611-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "ca-certificates",
           "SrcVersion": "20260611-r0",
           "Licenses": [
@@ -428,10 +430,10 @@
           ],
           "Maintainer": "Natanael Copa \u003cncopa@alpinelinux.org\u003e",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:c9534a03750bdfae341f10969016090fc11febbd",
+          "Digest": "sha1:5a15b7673544e9467bda2a50690d1db41ac83cd0",
           "InstalledFiles": [
             "etc/ssl/cert.pem",
             "etc/ssl/certs/ca-certificates.crt",
@@ -444,11 +446,11 @@
           "ID": "e2fsprogs-libs@1.47.4-r0",
           "Name": "e2fsprogs-libs",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/e2fsprogs-libs@1.47.4-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "49a7fb649bdaaed5"
+            "PURL": "pkg:apk/alpine/e2fsprogs-libs@1.47.4-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "5a8efe5386376e55"
           },
           "Version": "1.47.4-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "e2fsprogs",
           "SrcVersion": "1.47.4-r0",
           "Licenses": [
@@ -463,10 +465,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:7e134649946c116f9db77768232f4ec9cfa7c271",
+          "Digest": "sha1:dda45b39160dbcf6cae8474af7fe1667b1f9dd3e",
           "InstalledFiles": [
             "usr/lib/libe2p.so.2",
             "usr/lib/libe2p.so.2.3",
@@ -481,11 +483,11 @@
           "ID": "keyutils-libs@1.6.3-r4",
           "Name": "keyutils-libs",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/keyutils-libs@1.6.3-r4?arch=x86_64\u0026distro=3.24.1",
-            "UID": "a1a29120eb342032"
+            "PURL": "pkg:apk/alpine/keyutils-libs@1.6.3-r4?arch=aarch64\u0026distro=3.24.1",
+            "UID": "d67766d8006f3e3e"
           },
           "Version": "1.6.3-r4",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "keyutils",
           "SrcVersion": "1.6.3-r4",
           "Licenses": [
@@ -497,10 +499,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:b7331c96f077fc3522ee4361a441d1097204cd90",
+          "Digest": "sha1:26e876cf766cafdd43370933c92b1c0e993044aa",
           "InstalledFiles": [
             "usr/lib/libkeyutils.so.1",
             "usr/lib/libkeyutils.so.1.10"
@@ -511,11 +513,11 @@
           "ID": "krb5@1.22.2-r1",
           "Name": "krb5",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/krb5@1.22.2-r1?arch=x86_64\u0026distro=3.24.1",
-            "UID": "3511e7b06b5f2cf8"
+            "PURL": "pkg:apk/alpine/krb5@1.22.2-r1?arch=aarch64\u0026distro=3.24.1",
+            "UID": "2908eed5eafbdd79"
           },
           "Version": "1.22.2-r1",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "krb5",
           "SrcVersion": "1.22.2-r1",
           "Licenses": [
@@ -530,10 +532,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:36ae7fd2dd34f739095e7f12b1abf16d61ab408e",
+          "Digest": "sha1:37f64af25177b516f47d0da09b06bb523c6db0d7",
           "InstalledFiles": [
             "usr/bin/gss-client",
             "usr/bin/k5srvutil",
@@ -555,11 +557,11 @@
           "ID": "krb5-conf@1.0-r2",
           "Name": "krb5-conf",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/krb5-conf@1.0-r2?arch=x86_64\u0026distro=3.24.1",
-            "UID": "e7cf94ba8b6dbc33"
+            "PURL": "pkg:apk/alpine/krb5-conf@1.0-r2?arch=aarch64\u0026distro=3.24.1",
+            "UID": "7930175b6abb637e"
           },
           "Version": "1.0-r2",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "krb5-conf",
           "SrcVersion": "1.0-r2",
           "Licenses": [
@@ -567,10 +569,10 @@
           ],
           "Maintainer": "Natanael Copa \u003cncopa@alpinelinux.org\u003e",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:40a11e0690a59e110367b62a80661024e9942a2d",
+          "Digest": "sha1:ed82d1fcd8018d58fd7d3fa2ac7e8e103c412a24",
           "InstalledFiles": [
             "etc/krb5.conf"
           ],
@@ -580,11 +582,11 @@
           "ID": "krb5-libs@1.22.2-r1",
           "Name": "krb5-libs",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/krb5-libs@1.22.2-r1?arch=x86_64\u0026distro=3.24.1",
-            "UID": "958f8b4a4f087dac"
+            "PURL": "pkg:apk/alpine/krb5-libs@1.22.2-r1?arch=aarch64\u0026distro=3.24.1",
+            "UID": "bcba0f40fc8028af"
           },
           "Version": "1.22.2-r1",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "krb5",
           "SrcVersion": "1.22.2-r1",
           "Licenses": [
@@ -601,10 +603,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:ef02346e21b817ff379e4601e5b1fc9760e5e31a",
+          "Digest": "sha1:3eab4e22f1b940ce9a9e2198c9c9b72b52625cfa",
           "InstalledFiles": [
             "usr/lib/libgssapi_krb5.so.2",
             "usr/lib/libgssapi_krb5.so.2.2",
@@ -636,11 +638,11 @@
           "ID": "libapk@3.0.8-r0",
           "Name": "libapk",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libapk@3.0.8-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "3bc45fb01b4ba719"
+            "PURL": "pkg:apk/alpine/libapk@3.0.8-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "7728f74792e17b19"
           },
           "Version": "3.0.8-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "apk-tools",
           "SrcVersion": "3.0.8-r0",
           "Licenses": [
@@ -654,10 +656,10 @@
             "zlib@1.3.2-r0"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:b93ce9573c1d0db3eea7ce32841ad0857abc4a54",
+          "Digest": "sha1:472e0dab8bac78aa14d3ad6c4737cf6048651974",
           "InstalledFiles": [
             "usr/lib/libapk.so.3.0.0"
           ],
@@ -667,11 +669,11 @@
           "ID": "libcom_err@1.47.4-r0",
           "Name": "libcom_err",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libcom_err@1.47.4-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "3fc35a3f66d192af"
+            "PURL": "pkg:apk/alpine/libcom_err@1.47.4-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "d96ab455dd4d6513"
           },
           "Version": "1.47.4-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "e2fsprogs",
           "SrcVersion": "1.47.4-r0",
           "Licenses": [
@@ -685,10 +687,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:4b9fb5899ea0b1c0cfbb2a2c5952704437d4ecef",
+          "Digest": "sha1:48525fe42e198390304fbed6a25c469112e3d3a3",
           "InstalledFiles": [
             "usr/lib/libcom_err.so.2",
             "usr/lib/libcom_err.so.2.1"
@@ -699,11 +701,11 @@
           "ID": "libcrypto3@3.5.8-r0",
           "Name": "libcrypto3",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libcrypto3@3.5.8-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "4299bba2ba9c96aa"
+            "PURL": "pkg:apk/alpine/libcrypto3@3.5.8-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "43cd6be853775cb3"
           },
           "Version": "3.5.8-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "openssl",
           "SrcVersion": "3.5.8-r0",
           "Licenses": [
@@ -714,10 +716,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:1b3b9fc0c136f4936932bcb2ec21499f0ae5dfd3",
+          "Digest": "sha1:c816e710ac61b77ecf9968c8f7d3503134cf4ded",
           "InstalledFiles": [
             "etc/ssl/ct_log_list.cnf",
             "etc/ssl/ct_log_list.cnf.dist",
@@ -736,11 +738,11 @@
           "ID": "libev@4.33-r1",
           "Name": "libev",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libev@4.33-r1?arch=x86_64\u0026distro=3.24.1",
-            "UID": "fa8f2c3d542eb909"
+            "PURL": "pkg:apk/alpine/libev@4.33-r1?arch=aarch64\u0026distro=3.24.1",
+            "UID": "7ec5fa49d9577435"
           },
           "Version": "4.33-r1",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "libev",
           "SrcVersion": "4.33-r1",
           "Licenses": [
@@ -752,10 +754,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:919407c08cd4e7c94540e0e5af454b6f301e0b6e",
+          "Digest": "sha1:ed7a4337cff36f1e1509cca2dafbd04d0c969b22",
           "InstalledFiles": [
             "usr/lib/libev.so.4",
             "usr/lib/libev.so.4.0.0"
@@ -766,11 +768,11 @@
           "ID": "libgcc@15.2.0-r5",
           "Name": "libgcc",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libgcc@15.2.0-r5?arch=x86_64\u0026distro=3.24.1",
-            "UID": "8cf3d813d20beeee"
+            "PURL": "pkg:apk/alpine/libgcc@15.2.0-r5?arch=aarch64\u0026distro=3.24.1",
+            "UID": "d8e01109c7a48ca0"
           },
           "Version": "15.2.0-r5",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "gcc",
           "SrcVersion": "15.2.0-r5",
           "Licenses": [
@@ -782,10 +784,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:379c156c53e0cc140e87c79c0a3dd22b6ee51552",
+          "Digest": "sha1:24b50bfb674c67e129581a1a22c1c3ed523b6d48",
           "InstalledFiles": [
             "usr/lib/libgcc_s.so.1"
           ],
@@ -795,11 +797,11 @@
           "ID": "libidn2@2.3.8-r0",
           "Name": "libidn2",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libidn2@2.3.8-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "bff421f953b410b7"
+            "PURL": "pkg:apk/alpine/libidn2@2.3.8-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "d1af8b01c48c5da0"
           },
           "Version": "2.3.8-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "libidn2",
           "SrcVersion": "2.3.8-r0",
           "Licenses": [
@@ -812,10 +814,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:5800d14ce89e16148f4ccc2df74235ce7aedf800",
+          "Digest": "sha1:cef8a58ad0c65f18ce1685da1bc6492ac4ab09e3",
           "InstalledFiles": [
             "usr/lib/libidn2.so.0",
             "usr/lib/libidn2.so.0.4.0"
@@ -826,11 +828,11 @@
           "ID": "libpsl@0.21.5-r3",
           "Name": "libpsl",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libpsl@0.21.5-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "7879224d01df05c2"
+            "PURL": "pkg:apk/alpine/libpsl@0.21.5-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "b71ed5ded5e18ac0"
           },
           "Version": "0.21.5-r3",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "libpsl",
           "SrcVersion": "0.21.5-r3",
           "Licenses": [
@@ -843,10 +845,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:a551ddd5d6cb3913e1a1f47b02f21ae068b5e90a",
+          "Digest": "sha1:1fc94b0c28626c54e8a8228865f495aa24e5ab67",
           "InstalledFiles": [
             "usr/lib/libpsl.so.5",
             "usr/lib/libpsl.so.5.3.5"
@@ -857,11 +859,11 @@
           "ID": "libssh2@1.11.1-r3",
           "Name": "libssh2",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "91506546792d37c5"
+            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "74abecee6748a66"
           },
           "Version": "1.11.1-r3",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "libssh2",
           "SrcVersion": "1.11.1-r3",
           "Licenses": [
@@ -874,10 +876,10 @@
             "zlib@1.3.2-r0"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:702e12e8d8b88edcb516d67c0c6b24d51740c15f",
+          "Digest": "sha1:be01fbaf7c5e64dcd4d6e677d9d888d393227da9",
           "InstalledFiles": [
             "usr/lib/libssh2.so.1",
             "usr/lib/libssh2.so.1.0.1"
@@ -888,11 +890,11 @@
           "ID": "libssl3@3.5.8-r0",
           "Name": "libssl3",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libssl3@3.5.8-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "f290ab59b88b1c4a"
+            "PURL": "pkg:apk/alpine/libssl3@3.5.8-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "534deed78fd99ec5"
           },
           "Version": "3.5.8-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "openssl",
           "SrcVersion": "3.5.8-r0",
           "Licenses": [
@@ -904,10 +906,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:5f9b1e55d821953d2e2b1db322dad70a3b5041ea",
+          "Digest": "sha1:3c7ff2d065e8a285991c954d843af2dc713ccd59",
           "InstalledFiles": [
             "usr/lib/libssl.so.3"
           ],
@@ -917,11 +919,11 @@
           "ID": "libstdc++@15.2.0-r5",
           "Name": "libstdc++",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libstdc%2B%2B@15.2.0-r5?arch=x86_64\u0026distro=3.24.1",
-            "UID": "2eed307edf277aae"
+            "PURL": "pkg:apk/alpine/libstdc%2B%2B@15.2.0-r5?arch=aarch64\u0026distro=3.24.1",
+            "UID": "1bde174f4039f15a"
           },
           "Version": "15.2.0-r5",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "gcc",
           "SrcVersion": "15.2.0-r5",
           "Licenses": [
@@ -934,10 +936,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:5f7a2ad7646128ba02cc0d6fb94672b6845648d5",
+          "Digest": "sha1:e9659a34219ef24567e259306ffdc31a8e8ecaa6",
           "InstalledFiles": [
             "usr/lib/libstdc++.so.6",
             "usr/lib/libstdc++.so.6.0.34"
@@ -948,11 +950,11 @@
           "ID": "libunistring@1.4.2-r0",
           "Name": "libunistring",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libunistring@1.4.2-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "b5ad22f7f34d881f"
+            "PURL": "pkg:apk/alpine/libunistring@1.4.2-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "8551ac6242918e4"
           },
           "Version": "1.4.2-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "libunistring",
           "SrcVersion": "1.4.2-r0",
           "Licenses": [
@@ -964,10 +966,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:f509c801d070f8ea9f7400d5093c888ff1fee02e",
+          "Digest": "sha1:89076557eca547817f2a05a1438c57ad7be9ab56",
           "InstalledFiles": [
             "usr/lib/libunistring.so.5",
             "usr/lib/libunistring.so.5.2.1"
@@ -978,11 +980,11 @@
           "ID": "libverto@0.3.2-r2",
           "Name": "libverto",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libverto@0.3.2-r2?arch=x86_64\u0026distro=3.24.1",
-            "UID": "9df4321a283a6cf6"
+            "PURL": "pkg:apk/alpine/libverto@0.3.2-r2?arch=aarch64\u0026distro=3.24.1",
+            "UID": "929c9332dabef52f"
           },
           "Version": "0.3.2-r2",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "libverto",
           "SrcVersion": "0.3.2-r2",
           "Licenses": [
@@ -993,10 +995,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:73233059338142e4ac6d8fb8bb0074e93da75dc1",
+          "Digest": "sha1:e83260663abf2920d915456dc5cc27141dd74d6b",
           "InstalledFiles": [
             "usr/lib/libverto.so.1",
             "usr/lib/libverto.so.1.0.0"
@@ -1007,11 +1009,11 @@
           "ID": "musl@1.2.6-r2",
           "Name": "musl",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/musl@1.2.6-r2?arch=x86_64\u0026distro=3.24.1",
-            "UID": "1f8cb44befe503d4"
+            "PURL": "pkg:apk/alpine/musl@1.2.6-r2?arch=aarch64\u0026distro=3.24.1",
+            "UID": "e1c393a06f46177a"
           },
           "Version": "1.2.6-r2",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "musl",
           "SrcVersion": "1.2.6-r2",
           "Licenses": [
@@ -1019,13 +1021,13 @@
           ],
           "Maintainer": "Natanael Copa \u003cncopa@alpinelinux.org\u003e",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:0f7e5827e4e1a73631beda27b78431a8ba240e05",
+          "Digest": "sha1:24d42db3e3bf67e8da2784072cc5d0e6cbdfb485",
           "InstalledFiles": [
-            "lib/ld-musl-x86_64.so.1",
-            "lib/libc.musl-x86_64.so.1"
+            "lib/ld-musl-aarch64.so.1",
+            "lib/libc.musl-aarch64.so.1"
           ],
           "AnalyzedBy": "apk"
         },
@@ -1033,11 +1035,11 @@
           "ID": "musl-utils@1.2.6-r2",
           "Name": "musl-utils",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/musl-utils@1.2.6-r2?arch=x86_64\u0026distro=3.24.1",
-            "UID": "4497482ec1d943e1"
+            "PURL": "pkg:apk/alpine/musl-utils@1.2.6-r2?arch=aarch64\u0026distro=3.24.1",
+            "UID": "3f2009d672e4152e"
           },
           "Version": "1.2.6-r2",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "musl",
           "SrcVersion": "1.2.6-r2",
           "Licenses": [
@@ -1051,10 +1053,10 @@
             "scanelf@1.3.9-r1"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:75ada3c48d63ec5d87c42fdf934a3fdd11298dc5",
+          "Digest": "sha1:8464cf23091ac7f41c094da38a179e2e8b5a6b7f",
           "InstalledFiles": [
             "sbin/ldconfig",
             "usr/bin/getconf",
@@ -1068,11 +1070,11 @@
           "ID": "nghttp2@1.69.0-r0",
           "Name": "nghttp2",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/nghttp2@1.69.0-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "cdc560d54ff1f357"
+            "PURL": "pkg:apk/alpine/nghttp2@1.69.0-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "fb27ee9ff7f860b7"
           },
           "Version": "1.69.0-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "nghttp2",
           "SrcVersion": "1.69.0-r0",
           "Licenses": [
@@ -1091,10 +1093,10 @@
             "zlib@1.3.2-r0"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:e2ae804cd408255a40ac63dd45f8629bd9c83d60",
+          "Digest": "sha1:6755f71208e0b2e350c075a6eedb1612b062a1a2",
           "InstalledFiles": [
             "usr/bin/h2load",
             "usr/bin/nghttp",
@@ -1107,11 +1109,11 @@
           "ID": "nghttp2-libs@1.69.0-r0",
           "Name": "nghttp2-libs",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/nghttp2-libs@1.69.0-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "cdceee5bd778a45c"
+            "PURL": "pkg:apk/alpine/nghttp2-libs@1.69.0-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "6b448d32ff8c138a"
           },
           "Version": "1.69.0-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "nghttp2",
           "SrcVersion": "1.69.0-r0",
           "Licenses": [
@@ -1122,10 +1124,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:5331b8c641f7a9091ce2f43dad2a99851c4f4b12",
+          "Digest": "sha1:a8d25b0da6c274a5a55940205f6c9e6ea80302ab",
           "InstalledFiles": [
             "usr/lib/libnghttp2.so.14",
             "usr/lib/libnghttp2.so.14.29.4"
@@ -1136,11 +1138,11 @@
           "ID": "scanelf@1.3.9-r1",
           "Name": "scanelf",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/scanelf@1.3.9-r1?arch=x86_64\u0026distro=3.24.1",
-            "UID": "936394657a1626fb"
+            "PURL": "pkg:apk/alpine/scanelf@1.3.9-r1?arch=aarch64\u0026distro=3.24.1",
+            "UID": "e54a94e6ee151fba"
           },
           "Version": "1.3.9-r1",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "pax-utils",
           "SrcVersion": "1.3.9-r1",
           "Licenses": [
@@ -1151,10 +1153,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:013f903d0ba219673aebbdd04f74bb5ed82b01f0",
+          "Digest": "sha1:dc8c1ca6362d648f03640184baf8914b62b643fb",
           "InstalledFiles": [
             "usr/bin/scanelf"
           ],
@@ -1164,11 +1166,11 @@
           "ID": "ssl_client@1.37.0-r31",
           "Name": "ssl_client",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/ssl_client@1.37.0-r31?arch=x86_64\u0026distro=3.24.1",
-            "UID": "d42e31f15a4ce47a"
+            "PURL": "pkg:apk/alpine/ssl_client@1.37.0-r31?arch=aarch64\u0026distro=3.24.1",
+            "UID": "846f07e65929f3e4"
           },
           "Version": "1.37.0-r31",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "busybox",
           "SrcVersion": "1.37.0-r31",
           "Licenses": [
@@ -1181,10 +1183,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:c220f4a5125a313af733e98def94132bb1e9d40d",
+          "Digest": "sha1:4107c3f70dda302e0c3ed46299419245a8a280b4",
           "InstalledFiles": [
             "usr/bin/ssl_client"
           ],
@@ -1194,11 +1196,11 @@
           "ID": "zlib@1.3.2-r0",
           "Name": "zlib",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/zlib@1.3.2-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "e37054a2982d6c16"
+            "PURL": "pkg:apk/alpine/zlib@1.3.2-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "e32c19d8d0139fd5"
           },
           "Version": "1.3.2-r0",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "zlib",
           "SrcVersion": "1.3.2-r0",
           "Licenses": [
@@ -1209,10 +1211,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:dd4c3d102acaef2a71a1495951d55fabc8680613",
+          "Digest": "sha1:a9e1bc32bb315bfdac6224f92785e4d9a334bf29",
           "InstalledFiles": [
             "usr/lib/libz.so.1",
             "usr/lib/libz.so.1.3.2"
@@ -1223,11 +1225,11 @@
           "ID": "zstd@1.5.7-r2",
           "Name": "zstd",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/zstd@1.5.7-r2?arch=x86_64\u0026distro=3.24.1",
-            "UID": "71f39af918e4d14c"
+            "PURL": "pkg:apk/alpine/zstd@1.5.7-r2?arch=aarch64\u0026distro=3.24.1",
+            "UID": "5218cb794f6b7eac"
           },
           "Version": "1.5.7-r2",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "zstd",
           "SrcVersion": "1.5.7-r2",
           "Licenses": [
@@ -1242,10 +1244,10 @@
             "zstd-libs@1.5.7-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:ff3000882c17e89e5e13c020554b5bccc1bfd4df",
+          "Digest": "sha1:e7a478f76f9d6ed983f41e5bdb22223ad3fd8583",
           "InstalledFiles": [
             "usr/bin/pzstd",
             "usr/bin/unzstd",
@@ -1261,11 +1263,11 @@
           "ID": "zstd-libs@1.5.7-r2",
           "Name": "zstd-libs",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/zstd-libs@1.5.7-r2?arch=x86_64\u0026distro=3.24.1",
-            "UID": "b33716e8bc222f1f"
+            "PURL": "pkg:apk/alpine/zstd-libs@1.5.7-r2?arch=aarch64\u0026distro=3.24.1",
+            "UID": "6372abf94e37d616"
           },
           "Version": "1.5.7-r2",
-          "Arch": "x86_64",
+          "Arch": "aarch64",
           "SrcName": "zstd",
           "SrcVersion": "1.5.7-r2",
           "Licenses": [
@@ -1277,10 +1279,10 @@
             "musl@1.2.6-r2"
           ],
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
-          "Digest": "sha1:9569ce3a97c4109e8e53ddde9f3e1bd272613540",
+          "Digest": "sha1:52b18513a07bf2bb0d0634688681f7edce36b9ca",
           "InstalledFiles": [
             "usr/lib/libzstd.so.1",
             "usr/lib/libzstd.so.1.5.7"
@@ -1294,15 +1296,15 @@
           "PkgID": "libssh2@1.11.1-r3",
           "PkgName": "libssh2",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "91506546792d37c5"
+            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "74abecee6748a66"
           },
           "InstalledVersion": "1.11.1-r3",
           "FixedVersion": "1.11.1-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "SeveritySource": "nvd",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-58050",
@@ -1311,7 +1313,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:0355a7d50fb91d5d86ebef1c5bcc74054c3d0e65ddfc5d9dc12e76cb6dab2387",
+          "Fingerprint": "sha256:478a32007ae015ad63a935e4af4e46d093c0b37dd8b7c33f6628686030a12fdb",
           "Title": "libssh2: libssh2: Heap buffer overflow via integer overflow in publickey attribute allocation",
           "Description": "libssh2 through 1.11.1 reads an attacker-controlled 32-bit attribute count from a publickey-subsystem response and uses it in the allocation num_attrs * sizeof(libssh2_publickey_attribute) without bounds checking, so on 32-bit platforms the multiplication overflows to an undersized buffer. A malicious SSH server can then drive the attribute-parsing loop to write past the allocation, causing a heap buffer overflow in a connecting libssh2 client.",
           "Severity": "HIGH",
@@ -1363,15 +1365,15 @@
           "PkgID": "libssh2@1.11.1-r3",
           "PkgName": "libssh2",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "91506546792d37c5"
+            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "74abecee6748a66"
           },
           "InstalledVersion": "1.11.1-r3",
           "FixedVersion": "1.11.1-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "SeveritySource": "nvd",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-15661",
@@ -1380,7 +1382,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:cee26810ed4a44d4e24b404f0e1c5e5615129421bdaba6a9ceff8c16af59d771",
+          "Fingerprint": "sha256:993600e9dc4c4f8ffa6e34c7662b59b63d73ace987e1fe807381b4e535719b76",
           "Title": "libssh2: libssh2: Information disclosure and denial of service via crafted SFTP response",
           "Description": "libssh2 through 1.11.1, fixed in commit 2dae302, contains an out-of-bounds heap read vulnerability in the sftp_symlink() function in src/sftp.c that allows a malicious SSH server or man-in-the-middle attacker to disclose heap memory contents or cause a crash by sending a crafted SSH_FXP_NAME response. Attackers can supply a link_len value larger than the actual packet data in SSH_FXP_NAME responses for SFTP READLINK and REALPATH operations, triggering a heap buffer over-read of up to target_len minus one bytes due to the missing validation of available packet buffer size before the memcpy operation.",
           "Severity": "MEDIUM",
@@ -1429,15 +1431,15 @@
           "PkgID": "libssh2@1.11.1-r3",
           "PkgName": "libssh2",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "91506546792d37c5"
+            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "74abecee6748a66"
           },
           "InstalledVersion": "1.11.1-r3",
           "FixedVersion": "1.11.1-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-58051",
           "DataSource": {
@@ -1445,7 +1447,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:66e9923f7ac698bd2c92b3a53844f15c0d2a4669251ad5b2f38d9bb49832938a",
+          "Fingerprint": "sha256:0461efd078b78930415d841823534bedfe73d1ebd9cc923160ef984751c99d66",
           "Title": "libssh2: libssh2: Denial of service or information disclosure via malformed SSH publickey response",
           "Description": "libssh2 through 1.11.1 grows its publickey list with SSH2_REALLOC but does not zero-initialize new entries before parsing populates them, so a parse failure reaching the cleanup path leaves libssh2_publickey_list_free operating on an uninitialized entry. A malicious SSH server offering the publickey subsystem can use a malformed response to make cleanup free an uninitialized, attacker-influenceable attrs pointer in a connecting libssh2 client.",
           "Severity": "MEDIUM",
@@ -1491,15 +1493,15 @@
           "PkgID": "libssh2@1.11.1-r3",
           "PkgName": "libssh2",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "91506546792d37c5"
+            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "74abecee6748a66"
           },
           "InstalledVersion": "1.11.1-r3",
           "FixedVersion": "1.11.1-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-66032",
           "DataSource": {
@@ -1507,7 +1509,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:7d44ca27f42d8c913a92b99bab4b606914176e7bf299bf10996be61b6b1e39b7",
+          "Fingerprint": "sha256:d77aec74da0ce569239f850b0002ed2490751d57c012e9be104c0afbb99034ee",
           "Title": "libssh2: libssh2: Arbitrary code execution via double-free in SFTP session",
           "Description": "libssh2 through 1.11.1, fixed in commit 5e47761, contains a double-free vulnerability in the sftp_open() function in src/sftp.c that allows a malicious SSH server to corrupt the heap of any authenticated client opening an SFTP session. When a server responds to SSH_FXP_OPEN with SSH_FXP_STATUS containing FX_OK, the response data buffer is freed, and if a subsequent sftp_packet_require() call returns a specific error such as LIBSSH2_ERROR_CHANNEL_PACKET_EXCEEDED, the same pointer is freed a second time, enabling tcache dup conditions on glibc systems that allow overlapping allocations and function pointer overwrites.",
           "Severity": "MEDIUM",
@@ -1553,15 +1555,15 @@
           "PkgID": "libssh2@1.11.1-r3",
           "PkgName": "libssh2",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "91506546792d37c5"
+            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "74abecee6748a66"
           },
           "InstalledVersion": "1.11.1-r3",
           "FixedVersion": "1.11.1-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-66033",
           "DataSource": {
@@ -1569,7 +1571,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:6065bcaa7e953b8270082ea806ccd0400be27c308827dec6c1c057d15de0e691",
+          "Fingerprint": "sha256:1e6c38278b348cdc19035cb304fa46a1cb075ef1855237ce3f230df40979001d",
           "Title": "libssh2: libssh2: Denial of Service via integer underflow in AES-GCM cipher negotiation",
           "Description": "libssh2 through 1.11.1, fixed in commit a2ed82d, contains a pre-authentication integer underflow vulnerability in the ssh2_cipher_crypt() function in src/openssl.c that allows a malicious SSH server to crash any connecting client by negotiating AES-GCM ciphers during handshake. Attackers can exploit the underflow in the expression computing blocksize minus aadlen minus authentication tag length to trigger an out-of-bounds read and a memcpy call with a near-SIZE_MAX length argument, causing immediate process crash before any authentication occurs.",
           "Severity": "MEDIUM",
@@ -1615,15 +1617,15 @@
           "PkgID": "libssh2@1.11.1-r3",
           "PkgName": "libssh2",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "91506546792d37c5"
+            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "74abecee6748a66"
           },
           "InstalledVersion": "1.11.1-r3",
           "FixedVersion": "1.11.1-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-66034",
           "DataSource": {
@@ -1631,7 +1633,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:5855951e9c230dc7d24b1064370f3524e9d32f5c2082a1bc2b8ad563e842aee0",
+          "Fingerprint": "sha256:ed4d0289c7e60726e9d4e5d5e33a58331955f09e484554e2d0ed9f51396e833a",
           "Title": "libssh2: libssh2: Information disclosure and potential arbitrary code execution via heap out-of-bounds read",
           "Description": "libssh2 through 1.11.1, fixed in commit a13bb6c, contains a missing bounds check vulnerability that allows a malicious SSH server to trigger an arbitrary-length heap out-of-bounds read and a free of an uninitialized pointer via the publickey subsystem. In libssh2_publickey_list_fetch(), the version 1 response parser reads a server-controlled comment_len value and advances the parse pointer without verifying sufficient bytes remain in the buffer, causing the out-of-bounds read to leak heap pointers from adjacent allocations defeating ASLR, followed by heap allocator state corruption when the error cleanup path frees an uninitialized pointer from a non-zeroed realloc() region.",
           "Severity": "MEDIUM",
@@ -1677,15 +1679,15 @@
           "PkgID": "libssh2@1.11.1-r3",
           "PkgName": "libssh2",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=x86_64\u0026distro=3.24.1",
-            "UID": "91506546792d37c5"
+            "PURL": "pkg:apk/alpine/libssh2@1.11.1-r3?arch=aarch64\u0026distro=3.24.1",
+            "UID": "74abecee6748a66"
           },
           "InstalledVersion": "1.11.1-r3",
           "FixedVersion": "1.11.1-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-66035",
           "DataSource": {
@@ -1693,7 +1695,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:d670297127f795f4aa752d2e01143fd3dacdc653d9683ef9f3083c1ad4721623",
+          "Fingerprint": "sha256:c31bdc2a279e0865e1c2c5689893ecb5774cb3a01bf1e0ceea90e0b328505d2f",
           "Title": "libssh2: libssh2: Arbitrary code execution via heap buffer overflow during SSH negotiation",
           "Description": "libssh2 through 1.11.1, fixed in commit 42e33d8, contains a pre-authentication heap buffer overflow vulnerability that allows a malicious SSH server to corrupt heap metadata in any connecting client by sending a packet with a packet_length smaller than the cipher's block size during Encrypt-then-MAC cipher negotiation. In the fullpacket() function in src/transport.c, the ETM path allocates a buffer of packet_length bytes but copies blocksize minus one bytes via memcpy, causing an overflow that on 32-bit glibc writes attacker-controlled bytes into an adjacent chunk's SIZE field, enabling tcache bin confusion, overlapping live objects, and function pointer overwrite during the session handshake before authentication.",
           "Severity": "MEDIUM",
@@ -1738,15 +1740,15 @@
           "PkgID": "nghttp2@1.69.0-r0",
           "PkgName": "nghttp2",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/nghttp2@1.69.0-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "cdc560d54ff1f357"
+            "PURL": "pkg:apk/alpine/nghttp2@1.69.0-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "fb27ee9ff7f860b7"
           },
           "InstalledVersion": "1.69.0-r0",
           "FixedVersion": "1.70.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-58055",
           "DataSource": {
@@ -1754,7 +1756,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:66bf0bc7901afe1e8c8b88ebbe85715f7dedb172f13f20642ccf7a1171b0ccfe",
+          "Fingerprint": "sha256:6ff4258be6932293bd5df1dc001dd6816fa3e5a831fcca999c39859701222eae",
           "Title": "nghttp2: nghttp2: HTTP Request/Response Smuggling and Response-Queue Poisoning via ambiguous HTTP/1.1 Upgrade requests",
           "Description": "nghttp2's nghttpx proxy through 1.69.0 forwards an HTTP/1.1 Upgrade request that also carries a Content-Length header and body onto reusable keep-alive backend connections, re-adding the Upgrade and Connection headers while passing Content-Length verbatim. A backend that resolves the resulting ambiguous message in the attacker's favor enables HTTP request/response smuggling and cross-client response-queue poisoning.",
           "Severity": "MEDIUM",
@@ -1809,15 +1811,15 @@
           "PkgID": "nghttp2-libs@1.69.0-r0",
           "PkgName": "nghttp2-libs",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/nghttp2-libs@1.69.0-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "cdceee5bd778a45c"
+            "PURL": "pkg:apk/alpine/nghttp2-libs@1.69.0-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "6b448d32ff8c138a"
           },
           "InstalledVersion": "1.69.0-r0",
           "FixedVersion": "1.70.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-58055",
           "DataSource": {
@@ -1825,7 +1827,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:692731004cb483d2ce9f8389195b2ddcbc76142e889d95a5c247bd47c220c3fa",
+          "Fingerprint": "sha256:9a3bb6410ddba8c2a0a0a41636111dd62b6b6e7252da9dae73ede8770430a1fc",
           "Title": "nghttp2: nghttp2: HTTP Request/Response Smuggling and Response-Queue Poisoning via ambiguous HTTP/1.1 Upgrade requests",
           "Description": "nghttp2's nghttpx proxy through 1.69.0 forwards an HTTP/1.1 Upgrade request that also carries a Content-Length header and body onto reusable keep-alive backend connections, re-adding the Upgrade and Connection headers while passing Content-Length verbatim. A backend that resolves the resulting ambiguous message in the attacker's favor enables HTTP request/response smuggling and cross-client response-queue poisoning.",
           "Severity": "MEDIUM",
@@ -1880,15 +1882,15 @@
           "PkgID": "zlib@1.3.2-r0",
           "PkgName": "zlib",
           "PkgIdentifier": {
-            "PURL": "pkg:apk/alpine/zlib@1.3.2-r0?arch=x86_64\u0026distro=3.24.1",
-            "UID": "e37054a2982d6c16"
+            "PURL": "pkg:apk/alpine/zlib@1.3.2-r0?arch=aarch64\u0026distro=3.24.1",
+            "UID": "e32c19d8d0139fd5"
           },
           "InstalledVersion": "1.3.2-r0",
           "FixedVersion": "1.3.2-r1",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:b18ba029a1633efcceddcdd0c414e421d7cfa9d25aaffda0e6ccfa8ef768f1e6",
-            "DiffID": "sha256:f3ee09a7c8f73b35cba713dd630362c86c00913a44afa1f6b1c4b7fba2eff09d"
+            "Digest": "sha256:77126eea766a2049131ac33578b6f9fee7f7ad33861100c5402fdb59aff0fd95",
+            "DiffID": "sha256:b7a8d1a7ca4210670f2054f7465e1c739befa34e50c0bbe2a401dd9b2913ccb9"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-85091",
           "DataSource": {
@@ -1896,7 +1898,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:0c1dcaebffc7fdc5c93b2a81b1ea1749bd7effbccc2cd7f8fbf46afc562cc1f1",
+          "Fingerprint": "sha256:24691c31ca47241c8cd89ab1c61cda365d4a8f015df933d411348909b327d836",
           "Title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ...",
           "Description": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vulnerability in the gz_vacate() function when processing non-blocking gzwrite() operations with stale external buffer pointers. Attackers can trigger the overflow by calling gzprintf() or gzvprintf() after a write stall, causing an unchecked memmove() to write beyond the internal input buffer boundary.",
           "Severity": "MEDIUM",

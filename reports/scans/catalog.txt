@@ -1,20 +1,20 @@
 
 Report Summary
 
-┌──────────────────────────────────────────┬──────────┬─────────────────┐
-│                  Target                  │   Type   │ Vulnerabilities │
-├──────────────────────────────────────────┼──────────┼─────────────────┤
-│ llmstack/catalog:scan-test (debian 13.7) │  debian  │        1        │
-├──────────────────────────────────────────┼──────────┼─────────────────┤
-│ app                                      │ gobinary │       14        │
-└──────────────────────────────────────────┴──────────┴─────────────────┘
+┌─────────────────────────────────────────────┬──────────┬─────────────────┐
+│                   Target                    │   Type   │ Vulnerabilities │
+├─────────────────────────────────────────────┼──────────┼─────────────────┤
+│ llmstack/catalog:4fe430b35ec9 (debian 13.7) │  debian  │        1        │
+├─────────────────────────────────────────────┼──────────┼─────────────────┤
+│ app                                         │ gobinary │        1        │
+└─────────────────────────────────────────────┴──────────┴─────────────────┘
 Legend:
 - '-': Not scanned
 - '0': Clean (no security findings detected)
 
 
-llmstack/catalog:scan-test (debian 13.7)
-========================================
+llmstack/catalog:4fe430b35ec9 (debian 13.7)
+===========================================
 Total: 1 (UNKNOWN: 1, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
 
 ┌─────────────────┬───────────────┬──────────┬────────┬───────────────────┬──────────────────┬───────────────────────────────────┐
@@ -25,67 +25,12 @@ Total: 1 (UNKNOWN: 1, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
 
 app (gobinary)
 ==============
-Total: 14 (UNKNOWN: 1, LOW: 1, MEDIUM: 9, HIGH: 3, CRITICAL: 0)
+Total: 1 (UNKNOWN: 1, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
 
-┌──────────────────┬────────────────┬──────────┬────────┬───────────────────┬────────────────┬──────────────────────────────────────────────────────────────┐
-│     Library      │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version  │                            Title                             │
-├──────────────────┼────────────────┼──────────┼────────┼───────────────────┼────────────────┼──────────────────────────────────────────────────────────────┤
-│ golang.org/x/sys │ CVE-2026-39824 │ UNKNOWN  │ fixed  │ v0.35.0           │ 0.44.0         │ Invoking integer overflow in NewNTUnicodeString in           │
-│                  │                │          │        │                   │                │ golang.org/x/sys/windows                                     │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-39824                   │
-├──────────────────┼────────────────┼──────────┤        ├───────────────────┼────────────────┼──────────────────────────────────────────────────────────────┤
-│ stdlib           │ CVE-2026-78667 │ HIGH     │        │ v1.27.1           │ 1.26.9, 1.27.2 │ net/http: golang: golang: Denial of Service via crafted HTTP │
-│                  │                │          │        │                   │                │ Range headers                                                │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-78667                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-78669 │          │        │                   │                │ net/http: net/http/internal/http2: golang.org/x/net/http2:   │
-│                  │                │          │        │                   │                │ net/http: Denial of Service via excessive HTTP/2 SETTINGS    │
-│                  │                │          │        │                   │                │ frames...                                                    │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-78669                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-97031 │          │        │                   │                │ crypto/tls: golang: crypto/tls: Denial of Service via        │
-│                  │                │          │        │                   │                │ multiple ECH outer extension references...                   │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-97031                   │
-│                  ├────────────────┼──────────┤        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-56866 │ MEDIUM   │        │                   │                │ net/http: golang: golang: Cross-user response poisoning via  │
-│                  │                │          │        │                   │                │ desynchronized HTTP CONNECT connections                      │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-56866                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-78659 │          │        │                   │                │ When "Trailer" headers are sent by a client, the HTTP server │
-│                  │                │          │        │                   │                │ internall...                                                 │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-78659                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-78660 │          │        │                   │                │ Historically, we have been rather lax about malformed        │
-│                  │                │          │        │                   │                │ framing-related ...                                          │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-78660                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-78663 │          │        │                   │                │ net/http: net/http/internal/http2: golang:                   │
-│                  │                │          │        │                   │                │ golang.org/x/net/http2: golang: flow control limit bypass    │
-│                  │                │          │        │                   │                │ via double refund...                                         │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-78663                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-94439 │          │        │                   │                │ net/http: golang: net/http: HTTP request smuggling via       │
-│                  │                │          │        │                   │                │ improper handling of HTTP/1 CONNECT...                       │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-94439                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-94440 │          │        │                   │                │ Parsing a multipart form can bypass memory limits and read   │
-│                  │                │          │        │                   │                │ an arbitrar...                                               │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-94440                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-94448 │          │        │                   │                │ html/template: golang: golang: cross-site scripting via      │
-│                  │                │          │        │                   │                │ consecutive expressions in JavaScript template literals...   │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-94448                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-97030 │          │        │                   │                │ A trusted template author may have previously written a      │
-│                  │                │          │        │                   │                │ valid template ......                                        │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-97030                   │
-│                  ├────────────────┤          │        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-97032 │          │        │                   │                │ net/http: net/http/internal/http2: golang:                   │
-│                  │                │          │        │                   │                │ golang.org/x/net/http2: net/http: Denial of Service via      │
-│                  │                │          │        │                   │                │ concurrent HPACK encoder...                                  │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-97032                   │
-│                  ├────────────────┼──────────┤        │                   │                ├──────────────────────────────────────────────────────────────┤
-│                  │ CVE-2026-56857 │ LOW      │        │                   │                │ os: golang: golang: Directory traversal via Windows junction │
-│                  │                │          │        │                   │                │ handling                                                     │
-│                  │                │          │        │                   │                │ https://avd.aquasec.com/nvd/cve-2026-56857                   │
-└──────────────────┴────────────────┴──────────┴────────┴───────────────────┴────────────────┴──────────────────────────────────────────────────────────────┘
+┌──────────────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬────────────────────────────────────────────────────┐
+│     Library      │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                       Title                        │
+├──────────────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼────────────────────────────────────────────────────┤
+│ golang.org/x/sys │ CVE-2026-39824 │ UNKNOWN  │ fixed  │ v0.35.0           │ 0.44.0        │ Invoking integer overflow in NewNTUnicodeString in │
+│                  │                │          │        │                   │               │ golang.org/x/sys/windows                           │
+│                  │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-39824         │
+└──────────────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴────────────────────────────────────────────────────┘
