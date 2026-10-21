@@ -44,13 +44,15 @@ need() {
   [[ ${#missing[@]} -eq 0 ]] || die "missing tools: ${missing[*]} (see README prerequisites)"
 }
 
-image_tag() {
-  if [[ -n "${IMAGE_TAG:-}" ]]; then echo "$IMAGE_TAG"; return; fi
+# The tag is computed once per run (see main) so generated reports written
+# during the run cannot change it. reports/ is excluded from the dirty check.
+compute_image_tag() {
   local sha
   sha="$(git -C "$ROOT" rev-parse --short=12 HEAD 2>/dev/null || echo "nogit")"
-  if [[ -n "$(git -C "$ROOT" status --porcelain 2>/dev/null)" ]]; then sha="$sha-dirty"; fi
+  if [[ -n "$(git -C "$ROOT" status --porcelain -- . ':!reports' 2>/dev/null)" ]]; then sha="$sha-dirty"; fi
   echo "$sha"
 }
+image_tag() { echo "$IMAGE_TAG"; }
 
 all_images() {
   local tag; tag="$(image_tag)"
@@ -221,7 +223,7 @@ release_gate() {
   else
     die "release runs only on main or a tagged commit (current branch: $branch)"
   fi
-  if [[ "$(image_tag)" == *-dirty && -z "${IMAGE_TAG:-}" ]]; then
+  if [[ "$(image_tag)" == *-dirty && "$TAG_OVERRIDDEN" == "0" ]]; then
     die "working tree has uncommitted changes; commit before releasing so the image tag identifies the code"
   fi
 }
@@ -358,6 +360,10 @@ cmd_release() {
 # ---------------------------------------------------------------------- main --
 
 usage() { sed -n '2,24p' "$0" | sed 's/^# \{0,1\}//'; exit 1; }
+
+TAG_OVERRIDDEN=0
+if [[ -n "${IMAGE_TAG:-}" ]]; then TAG_OVERRIDDEN=1; else IMAGE_TAG="$(compute_image_tag)"; fi
+readonly IMAGE_TAG TAG_OVERRIDDEN
 
 cmd="${1:-}"; shift || true
 case "$cmd" in
