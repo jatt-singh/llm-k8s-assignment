@@ -3,10 +3,10 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a15d17-0f0c-73b5-8691-ff2d44e4c18b",
-  "CreatedAt": "2026-10-21T11:42:34.700244+05:30",
-  "ArtifactID": "sha256:803e4a966a71cb99d32315ac1afa4e18edd3fb642fb18e3883bfa67b0510118a",
-  "ArtifactName": "llmstack/assistant:4fe430b35ec9",
+  "ReportID": "01a15d29-73af-7d4a-b8b2-4f5ac228a633",
+  "CreatedAt": "2026-10-21T12:02:40.111871+05:30",
+  "ArtifactID": "sha256:93563e5e554a3e4a4a46b2147770c8dcc7761156d3cd9fcf88700bb0a71e3f4c",
+  "ArtifactName": "llmstack/assistant:60663dd66e5c",
   "ArtifactType": "container_image",
   "Metadata": {
     "Size": 14362112,
@@ -14,7 +14,7 @@
       "Family": "debian",
       "Name": "13.7"
     },
-    "ImageID": "sha256:d7260425199ce35ec2f7203068db08572d254f64c20ad6b78d4eb3d50cc34926",
+    "ImageID": "sha256:3d817b0de03c8055c2ec3300af5890452b6d1d07fface769084691e39931535a",
     "DiffIDs": [
       "sha256:e842bc95a0a8664498b7881e537b5929e419d590f5a9954fb7f81c73c20fc6c7",
       "sha256:621c35e751a51a9a9dc3e80aa0b7fe8be2a93402ea6ccd307d30852cd7776cda",
@@ -32,12 +32,12 @@
       "sha256:a9d6503d96ef8c76b77487e1a95b2c19d379d0c8be434b9f11be83ddb0f247cd"
     ],
     "RepoTags": [
-      "llmstack/assistant:4fe430b35ec9"
+      "llmstack/assistant:60663dd66e5c"
     ],
     "RepoDigests": [
-      "llmstack/assistant@sha256:d7260425199ce35ec2f7203068db08572d254f64c20ad6b78d4eb3d50cc34926"
+      "llmstack/assistant@sha256:3d817b0de03c8055c2ec3300af5890452b6d1d07fface769084691e39931535a"
     ],
-    "Reference": "llmstack/assistant:4fe430b35ec9",
+    "Reference": "llmstack/assistant:60663dd66e5c",
     "ImageConfig": {
       "architecture": "arm64",
       "created": "2026-10-21T05:53:59.408099888Z",
@@ -245,7 +245,7 @@
   },
   "Results": [
     {
-      "Target": "llmstack/assistant:4fe430b35ec9 (debian 13.7)",
+      "Target": "llmstack/assistant:60663dd66e5c (debian 13.7)",
       "Class": "os-pkgs",
       "Type": "debian",
       "Packages": [
@@ -1537,7 +1537,7 @@
             "Name": "Debian Security Tracker",
             "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
           },
-          "Fingerprint": "sha256:467364ce578ba564cc069b1943efdfcfa52aeb54f686e241e45e433a6a7b5850",
+          "Fingerprint": "sha256:77f0f8a478b4d3173ab04cd05c2e1d10aa8e882cb254ae34fe2693718c898d1a",
           "Title": "ca-certificates - security update",
           "Severity": "UNKNOWN"
         }
@@ -1756,7 +1756,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:0a10e2ef33f1f66310199572c300c63a6fe0640cb15cb6bbc12e95af6d421027",
+          "Fingerprint": "sha256:5fff7d9ee5d34ade1f11bf9fea09a7e23ebdb421ab7bced2c44ea18162fe0e7c",
           "Title": "Invoking integer overflow in NewNTUnicodeString in golang.org/x/sys/windows",
           "Description": "NewNTUnicodeString does not check for string length overflow. When provided with a string that overflows the maximum size of a NTUnicodeString (a 16-bit number of bytes), it returns a truncated string rather than an error.",
           "Severity": "UNKNOWN",

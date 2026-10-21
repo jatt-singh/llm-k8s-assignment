@@ -4,7 +4,7 @@ Report Summary
 ┌───────────────────────────────────────────────┬──────────┬─────────────────┐
 │                    Target                     │   Type   │ Vulnerabilities │
 ├───────────────────────────────────────────────┼──────────┼─────────────────┤
-│ llmstack/assistant:4fe430b35ec9 (debian 13.7) │  debian  │        1        │
+│ llmstack/assistant:60663dd66e5c (debian 13.7) │  debian  │        1        │
 ├───────────────────────────────────────────────┼──────────┼─────────────────┤
 │ app                                           │ gobinary │        1        │
 └───────────────────────────────────────────────┴──────────┴─────────────────┘
@@ -13,7 +13,7 @@ Legend:
 - '0': Clean (no security findings detected)
 
 
-llmstack/assistant:4fe430b35ec9 (debian 13.7)
+llmstack/assistant:60663dd66e5c (debian 13.7)
 =============================================
 Total: 1 (UNKNOWN: 1, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
 
