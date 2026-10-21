@@ -1,51 +1,72 @@
 # AI usage
 
+## Summary (honest account)
+
+This assessment was built with **Claude Code** (Anthropic, Claude Opus model) running **agentically** in VS Code with shell access on my laptop. Under a tight timebox, I directed the work, made the scope decisions and supervised the run. Claude Code wrote the code, IaC, chart, scripts and docs, executed the toolchain, and iterated on failures until every demo item worked on my machine.
+
+I did **not** hand-write most of the code, and I have not yet reviewed every line in depth. What I can stand behind is that every requirement was **executed and verified on a real cluster**, not just generated (see "How output was validated"). I am continuing to study the Terraform modules and the CI script in detail.
+
 ## Tools
 
 | Tool | Used for |
 |---|---|
-| **Claude Code** (Anthropic, Claude Opus model) in VS Code, agentic mode with shell access | Requirement breakdown, scaffolding of all code/IaC/chart/scripts, running the toolchain (go test, terraform, helm, trivy, syft, kind) and iterating on failures, first drafts of the docs |
+| Claude Code (agentic, with shell access) | Requirement breakdown; writing all services, Dockerfiles, Terraform, Helm chart, CI script, demo scripts and docs; running go test / terraform / helm / kind / trivy / syft; debugging failures |
 
-No other AI tools were used. No proprietary or employer code was provided to the tool.
+No other AI tools were used. No proprietary or employer code was shared with the tool.
 
-## How it was used, by area
+## My decisions and direction
 
-| Area | AI contribution | Human review / changes |
-|---|---|---|
-| Requirement analysis | Turned the brief into a checklist of deliverables and live-demo items | Checked against the brief line by line, and used it as the acceptance list |
-| Go services | Wrote the three services + shared `internal/server` package and unit tests | Reviewed every handler. Kept stdlib-only routing (Go 1.22 patterns) and rejected a framework to keep the dependency/CVE surface small. Checked that the route label uses the mux pattern (bounded metric cardinality) and that the API key is never logged |
-| Dockerfiles | Multi-stage Go → distroless static; llama.cpp wrapper with `USER 65532` | Verified the upstream llama.cpp image runs as root (`docker inspect`) and was not trusted as-is. Pinned every base by digest, resolved from the registry rather than from model memory |
-| Terraform | kind/helm/kubernetes/tls/random modules, per-env tfvars + backend | Checked provider versions and release dates against the Terraform registry. Matched the Kind node image to the kind library version *inside the provider* (v0.32), not the CLI (v0.33). Fixed a type error in a conditional that `terraform validate` caught |
-| Helm chart | Deployments, NetworkPolicies, PDB/HPA, Job/CronJob, ServiceMonitor, alerts, dashboard | Walked through every NetworkPolicy edge against the call graph. Gated the chart with `trivy config` (0 HIGH/CRITICAL). Added a `fail` guard so an empty IP allowlist cannot render (Traefik treats empty as allow-all) |
-| CI script | `scripts/ci.sh` check/release and helpers | Ran shellcheck and fixed its findings. Fixed `--rollback-on-failure` (a Helm 4 flag) back to `--atomic` for the installed Helm 3.19 |
-| Docs | First drafts of README, runbook, portability note | Edited for accuracy against what actually ran. Every command in the runbook was executed |
+- Asked for a plain-language breakdown of the brief first, to understand what was being assessed.
+- Asked whether to reuse my existing **private GKE Terraform** (a personal learning project). The answer was no, because the brief forbids cloud accounts. I accepted building on **Kind** instead and reusing only the module/env layout as a pattern. The GKE design informed `docs/CLOUD_PORTABILITY.md`.
+- Gave the go-ahead to build and test end to end in this repo, and to run it on my laptop (Docker, Kind, model download).
+- Asked for a step-by-step demo guide with both `make` and raw terraform/kubectl/helm commands, so I can explain and run each step myself (`docs/DEMO_GUIDE.md`).
 
 ## Example prompts
 
 - "Explain what this take-home assessment is asking for, in simple terms."
-- "I already have Terraform for a private GKE cluster. Can I reuse it?" The AI pointed out that the brief **forbids** cloud accounts. Only the module structure was reused as a pattern, and the GKE design became the cloud portability note.
-- "Build the whole assignment end to end in this folder and test it on my laptop."
+- "I have Terraform for a VPC and private GKE cluster. Can we reuse it for this assignment?"
+- "Build it for this assignment and perform the actions end to end. Add all code in the current folder."
+- "Add all the steps to run and test everything in the README."
 
 ## What was accepted, rejected or changed
 
-- **Rejected** deploying to GCP with my existing GKE code. It would break the "no cloud account" rule.
-- **Rejected** ingress-nginx. The project is retired upstream (2026), so Traefik was used instead.
-- **Rejected** the floating `:server` llama.cpp tag (built the same day). Pinned build `b11223`, several weeks old, by digest. Same for Helm charts and Terraform providers: the latest version older than ~2 weeks was chosen, to avoid adopting brand-new, unvetted releases.
-- **Changed** Alloy from a DaemonSet (default) to a single-replica Deployment. With `loki.source.kubernetes` a DaemonSet would ship every log line N times.
-- **Changed** the job/CronJob labels to exclude the image tag. Job specs are immutable, so a per-release label would make every `helm upgrade` fail.
+- **Rejected** deploying to GCP with my existing GKE code, because it breaks the "no cloud account" rule.
+- **Rejected** ingress-nginx (retired upstream in 2026) in favour of Traefik.
+- **Rejected** floating tags. The llama.cpp `:server` tag had been built the same day, so a several-weeks-old build (b11223) was pinned by digest. Helm charts and Terraform providers were pinned to versions at least ~2 weeks old, checked against their registries.
+- **Changed** the Go build image from 1.27.1 to 1.27.2 after Trivy reported 3 HIGH stdlib CVEs fixed in 1.27.2.
+- **Changed** Alloy from a DaemonSet to a single Deployment, to avoid shipping duplicate log lines.
+
+## Bugs that AI-generated code introduced and testing caught
+
+These are the main reason I trust the result more than I would trust unexecuted output:
+
+1. **Traefik chart values were wrong for the pinned chart version** (`logs` → `log`/`accessLog`, `service.type` → `service.spec.type`). This was caught by the chart schema and by `terraform apply` hanging on a LoadBalancer that Kind never provisions.
+2. **The alert never fired.** The error-rate ratio included kubelet health probes and Prometheus scrapes (always 200), which diluted real failures. This was caught by actually taking the LLM down. The rule was fixed to exclude probe and scrape routes, and the alert path was then verified as firing in Prometheus and routed by Alertmanager.
+3. **The CI image tag changed mid-run.** The scan step wrote reports into the repo, which made the tree "dirty" and changed the tag that later steps used. The tag is now computed once per run.
+4. **`release dev` applied Terraform to prod.** A loop variable in the lint step leaked into the caller because of bash dynamic scoping. This was caught on the full release run; the empty-allowlist guard stopped the app deploy. All loop variables are now `local`. The accidental prod cluster was then used to verify a clean `terraform destroy`.
+5. **A Helm template rendered the alert threshold as "0%"** (integer `mul` on 0.05). Fixed with `mulf`.
 
 ## How output was validated
 
-1. **Executed, not just read.** Unit tests, `go vet`, shellcheck, hadolint, `terraform validate`, `helm lint`, `trivy config` and `trivy image` all run in `scripts/ci.sh check`. The environment was built with `terraform apply` and every live-demo item was run against it (see the runbook).
-2. **Facts verified at the source.** Model revision and SHA-256 come from the Hugging Face API. Image digests come from the registries (`docker buildx imagetools inspect`). Chart and provider versions come from the chart indexes and the Terraform registry. Nothing version-related was taken from the model's memory.
-3. **Security settings proven by the cluster.** The namespace enforces PSS `restricted`, so a pod missing `runAsNonRoot`/`seccomp`/dropped capabilities would be rejected at admission.
+1. **Executed, not just read.** `scripts/ci.sh check` runs gofmt/vet, unit tests, shellcheck, hadolint, terraform validate, helm lint, chart policy tests, Trivy (config + image gate) and Syft. `make release ENV=dev` passed end to end.
+2. **Every live-demo item was run on the cluster:**
+   - LLM answer over TLS
+   - 403 from a non-allowlisted source
+   - NetworkPolicy edges allowed and blocked as designed
+   - HPA scaling 1→3
+   - CronJob passing its checksum and prompt checks
+   - an alert firing and reaching Alertmanager
+   - a bad release stalling and being rolled back
+   - prod destroyed cleanly
+3. **Facts verified at the source,** not from model memory: model revision and SHA-256 from the Hugging Face API, image digests from registries, chart and provider versions from their indexes.
+4. **Security enforced by the cluster:** namespace PSS `restricted` rejects any pod missing the required security settings.
 
 ## Risks considered
 
 | Risk | Mitigation |
 |---|---|
-| Hallucinated versions, flags or chart keys | Every version resolved live. Chart values checked against the pulled chart's `values.yaml`. Tool errors fixed by reading the actual error, not by guessing |
-| Insecure defaults copied from examples | PSS restricted enforced, trivy config gate, default-deny NetworkPolicies, explicit review of the upstream image user |
-| Secrets leaking | Secrets generated by Terraform at apply time, nothing in Git (`.gitignore` covers state and kubeconfigs). The CI script never uses `set -x` and never prints secret values. The LLM key is passed by env var, never on a command line |
-| Licensing | Model Apache-2.0, llama.cpp MIT, all Helm charts Apache-2.0. No third-party code copied into the repo; upstream components are consumed as pinned images/charts and credited in the README |
-| Over-trusting the AI's explanation | I can walk through every file. The design decisions and trade-offs in the README are mine to defend |
+| Hallucinated versions, flags, chart keys | Resolved live from registries; errors fixed from the actual tool output |
+| Insecure defaults | PSS restricted enforced, Trivy config gate, default-deny NetworkPolicies, upstream root image re-wrapped as non-root |
+| Secrets leaking | Generated at apply time, git-ignored state, no `set -x`. Verified that no generated secret or private key exists in any commit |
+| Licensing | Model Apache-2.0, llama.cpp MIT, charts Apache-2.0. Upstream components consumed as pinned images/charts, not copied |
+| Over-reliance on AI / not understanding the code | Stated openly above. A demo guide with raw commands and talking points was written so each step can be run and explained manually |
