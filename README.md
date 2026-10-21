@@ -6,6 +6,7 @@ Three Go microservices and a llama.cpp inference server running **Qwen2.5-0.5B-I
 
 | Doc | Contents |
 |---|---|
+| **[docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)** | **Start here: step-by-step demo with make and raw commands, plus talking points** |
 | [docs/RUNBOOK.md](docs/RUNBOOK.md) | Setup, deploy, verify (live demo script), rollback, teardown, troubleshooting, alert runbooks |
 | [docs/MODEL.md](docs/MODEL.md) | Model source, pinned revision, checksum, license, download/verification flow |
 | [docs/SECURITY_AND_OPERATIONS.md](docs/SECURITY_AND_OPERATIONS.md) | Security controls, operational decisions, scaling the LLM, secrets in the cloud |
