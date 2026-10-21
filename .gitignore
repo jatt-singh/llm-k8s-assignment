@@ -1,0 +1,15 @@
+# Terraform: state holds generated secrets (API key, TLS key) - never commit it.
+infra/terraform/state/
+infra/terraform/.terraform*/
+infra/terraform/*.tfplan
+*.tfstate
+*.tfstate.*
+# Per-environment kubeconfigs, CA bundles and detected allowlists
+.kube/
+# Local secrets, if any
+*.env
+.env*
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

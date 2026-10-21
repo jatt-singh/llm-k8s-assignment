@@ -1,0 +1,13 @@
+# prod: two replicas of each service spread over two workers, HPA up to 5.
+environment: prod
+services:
+  gateway: { replicas: 2 }
+  catalog: { replicas: 2 }
+  assistant: { replicas: 2 }
+autoscaling:
+  gateway: { enabled: true, minReplicas: 2, maxReplicas: 5, targetCPUUtilizationPercentage: 70 }
+llm:
+  replicas: 1
+ingress:
+  host: app.prod.llmstack.local
+  allowedSourceRanges: []

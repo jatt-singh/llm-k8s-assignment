@@ -1,0 +1,98 @@
+# Defaults shared by every environment. Environment differences live in
+# values-dev.yaml / values-prod.yaml; the image tag is set by scripts/ci.sh.
+
+image:
+  registry: llmstack            # images are side-loaded into Kind; no registry
+  tag: ""                       # required, set by the release script (git sha)
+  pullPolicy: IfNotPresent
+
+environment: dev
+
+# --- the three Go microservices -------------------------------------------
+services:
+  gateway:
+    replicas: 2
+    resources:
+      requests: { cpu: 50m, memory: 32Mi }
+      limits: { cpu: 250m, memory: 64Mi }
+    env:
+      CATALOG_URL: http://catalog:8080
+      ASSISTANT_URL: http://assistant:8080
+  catalog:
+    replicas: 2
+    resources:
+      requests: { cpu: 25m, memory: 32Mi }
+      limits: { cpu: 200m, memory: 64Mi }
+    env: {}
+  assistant:
+    replicas: 2
+    resources:
+      requests: { cpu: 25m, memory: 32Mi }
+      limits: { cpu: 250m, memory: 64Mi }
+    env:
+      CATALOG_URL: http://catalog:8080
+      LLM_URL: http://llm:8080
+      LLM_MODEL: qwen2.5-0.5b-instruct
+      LLM_TIMEOUT: 110s
+      LLM_MAX_TOKENS: "128"
+
+# HPA for the gateway (CPU-based; requests above are what % is measured against).
+autoscaling:
+  gateway:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+# --- LLM inference workload -----------------------------------------------
+llm:
+  replicas: 1
+  # Threads should equal the CPU limit; more threads than cores slows llama.cpp down.
+  threads: 2
+  contextSize: 2048
+  parallel: 2                   # concurrent request slots per replica
+  resources:
+    requests: { cpu: "1", memory: 1Gi }
+    limits: { cpu: "2", memory: 2Gi }
+
+# Model weights: downloaded once from Hugging Face into a PVC, checksum-verified.
+model:
+  repo: Qwen/Qwen2.5-0.5B-Instruct-GGUF
+  # Git commit of the Hugging Face repo, so "main" moving cannot change the bytes.
+  revision: 9217f5db79a29953eb74d5343926648285ec7e67
+  file: qwen2.5-0.5b-instruct-q4_k_m.gguf
+  sha256: 74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db
+  license: Apache-2.0
+  storage:
+    size: 2Gi
+    storageClassName: standard  # Kind's local-path provisioner
+
+# Helper image for the download job, the init wait and the scheduled check.
+tools:
+  image: curlimages/curl:8.22.0@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777
+
+# Daily model re-verification + fixed prompt smoke test.
+modelVerify:
+  enabled: true
+  schedule: "0 3 * * *"         # 03:00 UTC daily
+  timeZone: Etc/UTC
+
+# --- exposure --------------------------------------------------------------
+ingress:
+  enabled: true
+  className: traefik
+  host: app.dev.llmstack.local
+  tlsSecretName: gateway-tls    # created by Terraform
+  # Only these source ranges may reach the gateway. Everything else gets 403.
+  allowedSourceRanges:
+    - 127.0.0.1/32
+
+# Namespaces allowed to talk to workloads in this namespace.
+networkPolicy:
+  ingressControllerNamespace: ingress
+  monitoringNamespace: monitoring
+
+# --- observability ---------------------------------------------------------
+monitoring:
+  enabled: true                 # ServiceMonitor, PrometheusRule, Grafana dashboard
+  errorRateThreshold: 0.05      # 5% 5xx on the gateway

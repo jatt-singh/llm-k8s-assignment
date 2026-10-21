@@ -1,0 +1,205 @@
+{{- /*
+Model delivery: a PVC, a one-time Job that downloads the pinned revision from
+Hugging Face and verifies its SHA-256, and the scripts it (and the daily
+CronJob) run. Weights are written under /models/<revision>/ so a new pinned
+revision never overwrites the one currently being served.
+*/ -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: model-store
+  labels: {{- include "llm-app.labels" (dict "name" "model-store" "root" .) | nindent 4 }}
+  annotations:
+    # Keep the 500MB download if the release is uninstalled and reinstalled.
+    helm.sh/resource-policy: keep
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: {{ .Values.model.storage.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.model.storage.size }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: model-scripts
+  labels: {{- include "llm-app.labels" (dict "name" "model-scripts" "root" .) | nindent 4 }}
+data:
+  download.sh: |
+    #!/bin/sh
+    # Download the pinned model file and verify it. Idempotent: a verified file is kept.
+    set -eu
+    DIR="{{ include "llm-app.modelDir" . }}"
+    FILE="$DIR/$MODEL_FILE"
+    URL="https://huggingface.co/$MODEL_REPO/resolve/$MODEL_REVISION/$MODEL_FILE"
+    mkdir -p "$DIR"
+
+    if [ -f "$FILE.verified" ] && echo "$MODEL_SHA256  $FILE" | sha256sum -c -s; then
+      echo "{\"msg\":\"model already present and verified\",\"file\":\"$FILE\"}"
+      exit 0
+    fi
+
+    echo "{\"msg\":\"downloading\",\"url\":\"$URL\"}"
+    rm -f "$FILE.verified" "$FILE.part"
+    curl --fail --location --silent --show-error --retry 5 --retry-delay 5 \
+         --proto '=https' --tlsv1.2 -o "$FILE.part" "$URL"
+
+    if ! echo "$MODEL_SHA256  $FILE.part" | sha256sum -c -s; then
+      echo "{\"msg\":\"CHECKSUM MISMATCH - refusing to install model\",\"expected\":\"$MODEL_SHA256\",\"actual\":\"$(sha256sum "$FILE.part" | cut -d' ' -f1)\"}"
+      rm -f "$FILE.part"
+      exit 1
+    fi
+    mv "$FILE.part" "$FILE"
+    date -u +%Y-%m-%dT%H:%M:%SZ > "$FILE.verified"
+    echo "{\"msg\":\"model downloaded and verified\",\"sha256\":\"$MODEL_SHA256\"}"
+
+  verify.sh: |
+    #!/bin/sh
+    # Daily check: weights unchanged on disk, and the model answers fixed prompts.
+    set -u
+    FILE="{{ include "llm-app.modelPath" . }}"
+    fail=0
+
+    if echo "$MODEL_SHA256  $FILE" | sha256sum -c -s; then
+      echo '{"check":"checksum","result":"pass"}'
+    else
+      echo "{\"check\":\"checksum\",\"result\":\"fail\",\"file\":\"$FILE\"}"
+      fail=1
+    fi
+
+    # Fixed prompts with an expected substring; low temperature keeps answers stable.
+    ask() {
+      body="{\"messages\":[{\"role\":\"user\",\"content\":\"$1\"}],\"max_tokens\":32,\"temperature\":0}"
+      curl --fail --silent --show-error --max-time 90 \
+           -H "Authorization: Bearer $LLM_API_KEY" -H 'Content-Type: application/json' \
+           -d "$body" "$LLM_URL/v1/chat/completions"
+    }
+    check_prompt() {
+      if out=$(ask "$1") && echo "$out" | grep -qi "$2"; then
+        echo "{\"check\":\"prompt\",\"expect\":\"$2\",\"result\":\"pass\"}"
+      else
+        echo "{\"check\":\"prompt\",\"expect\":\"$2\",\"result\":\"fail\"}"
+        fail=1
+      fi
+    }
+    check_prompt "What is the capital of France? Answer with one word." "Paris"
+    check_prompt "What is 2 plus 2? Answer with just the number." "4"
+    check_prompt "Reply with exactly the word: pong" "pong"
+
+    [ "$fail" -eq 0 ] && echo '{"msg":"model verification passed"}' || echo '{"msg":"model verification FAILED"}'
+    exit "$fail"
+---
+# Job spec is immutable, so the name is tied to the model identity: a new
+# revision or checksum creates a new Job, an app-only release leaves it alone.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-download-{{ .Values.model.revision | trunc 8 }}-{{ .Values.model.sha256 | trunc 8 }}
+  labels:
+    {{- include "llm-app.selector" (dict "name" "model-download" "root" .) | nindent 4 }}
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 1800
+  template:
+    metadata:
+      labels:
+        {{- include "llm-app.selector" (dict "name" "model-download" "root" .) | nindent 8 }}
+    spec:
+      restartPolicy: OnFailure
+      serviceAccountName: model-jobs
+      automountServiceAccountToken: false
+      securityContext: {{- include "llm-app.podSecurityContext" . | nindent 8 }}
+      containers:
+        - name: download
+          image: {{ .Values.tools.image }}
+          command: ["sh", "/scripts/download.sh"]
+          env:
+            - { name: MODEL_REPO, value: {{ .Values.model.repo | quote }} }
+            - { name: MODEL_REVISION, value: {{ .Values.model.revision | quote }} }
+            - { name: MODEL_FILE, value: {{ .Values.model.file | quote }} }
+            - { name: MODEL_SHA256, value: {{ .Values.model.sha256 | quote }} }
+            - { name: HOME, value: /tmp }
+          volumeMounts:
+            - { name: models, mountPath: /models }
+            - { name: scripts, mountPath: /scripts, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+          resources:
+            requests: { cpu: 50m, memory: 64Mi }
+            limits: { cpu: 500m, memory: 128Mi }
+          securityContext: {{- include "llm-app.containerSecurityContext" . | nindent 12 }}
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: model-store
+        - name: scripts
+          configMap:
+            name: model-scripts
+        - name: tmp
+          emptyDir:
+            sizeLimit: 16Mi
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: model-jobs
+  labels: {{- include "llm-app.labels" (dict "name" "model-jobs" "root" .) | nindent 4 }}
+automountServiceAccountToken: false
+{{- if .Values.modelVerify.enabled }}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: model-verify
+  labels: {{- include "llm-app.labels" (dict "name" "model-verify" "root" .) | nindent 4 }}
+spec:
+  schedule: {{ .Values.modelVerify.schedule | quote }}
+  timeZone: {{ .Values.modelVerify.timeZone }}
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 600
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 600
+      ttlSecondsAfterFinished: 86400
+      template:
+        metadata:
+          labels:
+            {{- include "llm-app.selector" (dict "name" "model-verify" "root" .) | nindent 12 }}
+        spec:
+          restartPolicy: Never
+          serviceAccountName: model-jobs
+          automountServiceAccountToken: false
+          securityContext: {{- include "llm-app.podSecurityContext" . | nindent 12 }}
+          containers:
+            - name: verify
+              image: {{ .Values.tools.image }}
+              command: ["sh", "/scripts/verify.sh"]
+              env:
+                - { name: MODEL_SHA256, value: {{ .Values.model.sha256 | quote }} }
+                - { name: LLM_URL, value: "http://llm:8080" }
+                - { name: HOME, value: /tmp }
+                - name: LLM_API_KEY
+                  valueFrom:
+                    secretKeyRef: { name: llm-api-key, key: LLM_API_KEY }
+              volumeMounts:
+                - { name: models, mountPath: /models, readOnly: true }
+                - { name: scripts, mountPath: /scripts, readOnly: true }
+                - { name: tmp, mountPath: /tmp }
+              resources:
+                requests: { cpu: 100m, memory: 32Mi }
+                limits: { cpu: "1", memory: 64Mi }
+              securityContext: {{- include "llm-app.containerSecurityContext" . | nindent 16 }}
+          volumes:
+            - name: models
+              persistentVolumeClaim:
+                claimName: model-store
+                readOnly: true
+            - name: scripts
+              configMap:
+                name: model-scripts
+            - name: tmp
+              emptyDir:
+                sizeLimit: 16Mi
+{{- end }}

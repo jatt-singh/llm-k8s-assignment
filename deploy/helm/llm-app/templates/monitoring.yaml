@@ -1,0 +1,101 @@
+{{- if .Values.monitoring.enabled }}
+{{- $ns := .Release.Namespace }}
+# Prometheus scrapes /metrics on gateway, catalog and assistant.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: llmstack-services
+  labels: {{- include "llm-app.labels" (dict "name" "monitoring" "root" .) | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      llmstack.io/scrape: "true"
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: llmstack-alerts
+  labels: {{- include "llm-app.labels" (dict "name" "monitoring" "root" .) | nindent 4 }}
+spec:
+  groups:
+    - name: llmstack.availability
+      rules:
+        - alert: GatewayHighErrorRate
+          expr: |
+            (
+              sum(rate(http_requests_total{namespace="{{ $ns }}",service="gateway",code=~"5.."}[2m]))
+              /
+              sum(rate(http_requests_total{namespace="{{ $ns }}",service="gateway"}[2m]))
+            ) > {{ .Values.monitoring.errorRateThreshold }}
+          for: 2m
+          labels:
+            severity: critical
+            team: platform
+          annotations:
+            summary: "Gateway 5xx ratio above {{ mul .Values.monitoring.errorRateThreshold 100 }}% for 2m"
+            description: "{{ "{{ $value | humanizePercentage }}" }} of gateway requests are failing in {{ .Values.environment }}."
+            runbook_url: "docs/RUNBOOK.md#alert-gatewayhigherrorrate"
+        - alert: GatewayDown
+          expr: sum(up{namespace="{{ $ns }}",service="gateway"}) == 0 or absent(up{namespace="{{ $ns }}",service="gateway"})
+          for: 1m
+          labels:
+            severity: critical
+            team: platform
+          annotations:
+            summary: "No gateway pod is being scraped successfully"
+            runbook_url: "docs/RUNBOOK.md#alert-gatewaydown"
+        - alert: LLMUnavailable
+          expr: kube_deployment_status_replicas_available{namespace="{{ $ns }}",deployment="llm"} == 0
+          for: 2m
+          labels:
+            severity: critical
+            team: platform
+          annotations:
+            summary: "LLM deployment has no available replicas"
+            runbook_url: "docs/RUNBOOK.md#alert-llmunavailable"
+        - alert: GatewayHighLatencyP95
+          expr: |
+            histogram_quantile(0.95,
+              sum by (le) (rate(http_request_duration_seconds_bucket{namespace="{{ $ns }}",service="gateway",route="POST /api/v1/ask"}[5m]))
+            ) > 30
+          for: 10m
+          labels:
+            severity: warning
+            team: platform
+          annotations:
+            summary: "p95 latency of /api/v1/ask above 30s"
+    - name: llmstack.scheduled-jobs
+      rules:
+        - alert: ModelVerifyJobFailed
+          expr: kube_job_status_failed{namespace="{{ $ns }}",job_name=~"model-verify.*"} > 0
+          labels:
+            severity: warning
+            team: platform
+          annotations:
+            summary: "Model verification job {{ "{{ $labels.job_name }}" }} failed"
+            description: "Checksum or fixed-prompt check failed. Check logs: {namespace=\"{{ $ns }}\", app=\"model-verify\"}"
+            runbook_url: "docs/RUNBOOK.md#alert-modelverifyjobfailed"
+        - alert: ModelVerifyNotSucceededRecently
+          expr: time() - kube_cronjob_status_last_successful_time{namespace="{{ $ns }}",cronjob="model-verify"} > 26 * 3600
+          labels:
+            severity: warning
+            team: platform
+          annotations:
+            summary: "model-verify has not succeeded in the last 26h"
+            runbook_url: "docs/RUNBOOK.md#alert-modelverifyjobfailed"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: llmstack-dashboard
+  labels:
+    {{- include "llm-app.labels" (dict "name" "monitoring" "root" .) | nindent 4 }}
+    grafana_dashboard: "1"
+data:
+  llmstack.json: |-
+{{ .Files.Get "dashboards/llmstack.json" | replace "__NS__" $ns | indent 4 }}
+{{- end }}

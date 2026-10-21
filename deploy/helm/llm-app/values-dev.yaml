@@ -1,0 +1,14 @@
+# dev: minimum footprint, one replica of everything except the HPA floor.
+environment: dev
+services:
+  gateway: { replicas: 1 }
+  catalog: { replicas: 1 }
+  assistant: { replicas: 1 }
+autoscaling:
+  gateway: { enabled: true, minReplicas: 1, maxReplicas: 3, targetCPUUtilizationPercentage: 70 }
+llm:
+  replicas: 1
+ingress:
+  host: app.dev.llmstack.local
+  # Filled in from the environment by scripts/ci.sh (see ALLOWED_CIDRS).
+  allowedSourceRanges: []

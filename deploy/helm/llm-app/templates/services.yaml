@@ -1,0 +1,142 @@
+{{- /* gateway, catalog and assistant share one template; they differ only by values. */ -}}
+{{- range $name, $svc := .Values.services }}
+{{- $ctx := dict "name" $name "root" $ }}
+{{- $hpa := index $.Values.autoscaling $name | default dict }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ $name }}
+  labels: {{- include "llm-app.labels" $ctx | nindent 4 }}
+# No workload talks to the Kubernetes API, so no token is mounted and no Role is bound.
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "llm-app.labels" $ctx | nindent 4 }}
+    llmstack.io/scrape: "true"
+spec:
+  type: ClusterIP
+  selector: {{- include "llm-app.selector" $ctx | nindent 4 }}
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels: {{- include "llm-app.labels" $ctx | nindent 4 }}
+spec:
+  {{- if not $hpa.enabled }}
+  replicas: {{ $svc.replicas }}
+  {{- end }}
+  revisionHistoryLimit: 5
+  minReadySeconds: 5
+  # Never drop below the current ready count: a new pod must pass readiness
+  # before an old one is removed. A broken release stalls instead of serving errors.
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels: {{- include "llm-app.selector" $ctx | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "llm-app.labels" $ctx | nindent 8 }}
+    spec:
+      serviceAccountName: {{ $name }}
+      automountServiceAccountToken: false
+      securityContext: {{- include "llm-app.podSecurityContext" . | nindent 8 }}
+      terminationGracePeriodSeconds: 30
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: {{- include "llm-app.selector" $ctx | nindent 14 }}
+      containers:
+        - name: {{ $name }}
+          image: {{ include "llm-app.image" $ctx }}
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+            {{- range $k, $v := $svc.env }}
+            - name: {{ $k }}
+              value: {{ $v | quote }}
+            {{- end }}
+            {{- if eq $name "assistant" }}
+            - name: LLM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: llm-api-key
+                  key: LLM_API_KEY
+            {{- end }}
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          # Let endpoints update before the server stops accepting connections.
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 5
+          resources: {{- toYaml $svc.resources | nindent 12 }}
+          securityContext: {{- include "llm-app.containerSecurityContext" . | nindent 12 }}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ $name }}
+  labels: {{- include "llm-app.labels" $ctx | nindent 4 }}
+spec:
+  # maxUnavailable (not minAvailable) so a single-replica dev deploy can still drain.
+  maxUnavailable: 1
+  selector:
+    matchLabels: {{- include "llm-app.selector" $ctx | nindent 6 }}
+{{- if $hpa.enabled }}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $name }}
+  labels: {{- include "llm-app.labels" $ctx | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $name }}
+  minReplicas: {{ $hpa.minReplicas }}
+  maxReplicas: {{ $hpa.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ $hpa.targetCPUUtilizationPercentage }}
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+        - type: Pods
+          value: 2
+          periodSeconds: 30
+    scaleDown:
+      stabilizationWindowSeconds: 120
+{{- end }}
+{{- end }}

@@ -1,0 +1,61 @@
+
+Report Summary
+
+┌──────────────────────────────────────────────────────────────────────────────────┬────────┬─────────────────┐
+│                                      Target                                      │  Type  │ Vulnerabilities │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ curlimages/curl:8.22.0@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92de- │ alpine │       10        │
+│ c39ec7785166777 (alpine 3.24.1)                                                  │        │                 │
+└──────────────────────────────────────────────────────────────────────────────────┴────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+curlimages/curl:8.22.0@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777 (alpine 3.24.1)
+==============================================================================================================
+Total: 10 (UNKNOWN: 0, LOW: 0, MEDIUM: 9, HIGH: 1, CRITICAL: 0)
+
+┌──────────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬──────────────────────────────────────────────────────────────┐
+│   Library    │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                            Title                             │
+├──────────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ libssh2      │ CVE-2026-58050 │ HIGH     │ fixed  │ 1.11.1-r3         │ 1.11.1-r4     │ libssh2: libssh2: Heap buffer overflow via integer overflow  │
+│              │                │          │        │                   │               │ in publickey attribute allocation...                         │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-58050                   │
+│              ├────────────────┼──────────┤        │                   │               ├──────────────────────────────────────────────────────────────┤
+│              │ CVE-2025-15661 │ MEDIUM   │        │                   │               │ libssh2: libssh2: Information disclosure and denial of       │
+│              │                │          │        │                   │               │ service via crafted SFTP response...                         │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-15661                   │
+│              ├────────────────┤          │        │                   │               ├──────────────────────────────────────────────────────────────┤
+│              │ CVE-2026-58051 │          │        │                   │               │ libssh2: libssh2: Denial of service or information           │
+│              │                │          │        │                   │               │ disclosure via malformed SSH publickey...                    │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-58051                   │
+│              ├────────────────┤          │        │                   │               ├──────────────────────────────────────────────────────────────┤
+│              │ CVE-2026-66032 │          │        │                   │               │ libssh2: libssh2: Arbitrary code execution via double-free   │
+│              │                │          │        │                   │               │ in SFTP session                                              │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-66032                   │
+│              ├────────────────┤          │        │                   │               ├──────────────────────────────────────────────────────────────┤
+│              │ CVE-2026-66033 │          │        │                   │               │ libssh2: libssh2: Denial of Service via integer underflow in │
+│              │                │          │        │                   │               │ AES-GCM cipher negotiation...                                │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-66033                   │
+│              ├────────────────┤          │        │                   │               ├──────────────────────────────────────────────────────────────┤
+│              │ CVE-2026-66034 │          │        │                   │               │ libssh2: libssh2: Information disclosure and potential       │
+│              │                │          │        │                   │               │ arbitrary code execution via heap out-of-bounds...           │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-66034                   │
+│              ├────────────────┤          │        │                   │               ├──────────────────────────────────────────────────────────────┤
+│              │ CVE-2026-66035 │          │        │                   │               │ libssh2: libssh2: Arbitrary code execution via heap buffer   │
+│              │                │          │        │                   │               │ overflow during SSH negotiation...                           │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-66035                   │
+├──────────────┼────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ nghttp2      │ CVE-2026-58055 │          │        │ 1.69.0-r0         │ 1.70.0-r0     │ nghttp2: nghttp2: HTTP Request/Response Smuggling and        │
+│              │                │          │        │                   │               │ Response-Queue Poisoning via ambiguous HTTP/1.1 Upgrade...   │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-58055                   │
+├──────────────┤                │          │        │                   │               │                                                              │
+│ nghttp2-libs │                │          │        │                   │               │                                                              │
+│              │                │          │        │                   │               │                                                              │
+│              │                │          │        │                   │               │                                                              │
+├──────────────┼────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ zlib         │ CVE-2026-85091 │          │        │ 1.3.2-r0          │ 1.3.2-r1      │ zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer    │
+│              │                │          │        │                   │               │ overflow vul ......                                          │
+│              │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-85091                   │
+└──────────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴──────────────────────────────────────────────────────────────┘

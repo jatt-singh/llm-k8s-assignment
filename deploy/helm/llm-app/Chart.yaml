@@ -1,0 +1,6 @@
+apiVersion: v2
+name: llm-app
+description: Gateway, catalog and assistant services plus a CPU-only llama.cpp LLM server
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

@@ -1,0 +1,338 @@
+{
+ "uid": "llmstack",
+ "title": "LLM Stack - Overview",
+ "tags": [
+  "llmstack"
+ ],
+ "timezone": "utc",
+ "schemaVersion": 39,
+ "refresh": "30s",
+ "time": {
+  "from": "now-1h",
+  "to": "now"
+ },
+ "panels": [
+  {
+   "id": 1,
+   "type": "stat",
+   "title": "Gateway uptime (probe)",
+   "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 6,
+    "h": 4
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "0": {
+         "text": "DOWN",
+         "color": "red"
+        },
+        "1": {
+         "text": "UP",
+         "color": "green"
+        }
+       }
+      }
+     ],
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "red",
+        "value": null
+       },
+       {
+        "color": "green",
+        "value": 1
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "min(up{namespace=\"__NS__\",service=\"gateway\"})"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "type": "stat",
+   "title": "Gateway 5xx ratio (5m)",
+   "gridPos": {
+    "x": 6,
+    "y": 0,
+    "w": 6,
+    "h": 4
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "percentunit",
+     "mappings": [],
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "red",
+        "value": 0.05
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum(rate(http_requests_total{namespace=\"__NS__\",service=\"gateway\",code=~\"5..\"}[5m])) / clamp_min(sum(rate(http_requests_total{namespace=\"__NS__\",service=\"gateway\"}[5m])),1e-9)"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "type": "stat",
+   "title": "LLM replicas available",
+   "gridPos": {
+    "x": 12,
+    "y": 0,
+    "w": 6,
+    "h": 4
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "mappings": [],
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "red",
+        "value": null
+       },
+       {
+        "color": "green",
+        "value": 1
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum(kube_deployment_status_replicas_available{namespace=\"__NS__\",deployment=\"llm\"})"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "type": "stat",
+   "title": "model-verify last success",
+   "gridPos": {
+    "x": 18,
+    "y": 0,
+    "w": 6,
+    "h": 4
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "dateTimeFromNow",
+     "mappings": [],
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "kube_cronjob_status_last_successful_time{namespace=\"__NS__\",cronjob=\"model-verify\"} * 1000"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "type": "timeseries",
+   "title": "Request rate by service",
+   "gridPos": {
+    "x": 0,
+    "y": 4,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "reqps"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum by (service, code) (rate(http_requests_total{namespace=\"__NS__\",route!~\"GET /(healthz|metrics)\"}[2m]))",
+     "legendFormat": "{{service}} {{code}}"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "type": "timeseries",
+   "title": "p95 latency by route",
+   "gridPos": {
+    "x": 12,
+    "y": 4,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "s"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "histogram_quantile(0.95, sum by (le, service, route) (rate(http_request_duration_seconds_bucket{namespace=\"__NS__\",route!~\"GET /(healthz|metrics)\"}[5m])))",
+     "legendFormat": "{{service}} {{route}}"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "type": "timeseries",
+   "title": "Gateway replicas vs HPA desired",
+   "gridPos": {
+    "x": 0,
+    "y": 12,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "kube_horizontalpodautoscaler_status_current_replicas{namespace=\"__NS__\",horizontalpodautoscaler=\"gateway\"}",
+     "legendFormat": "current"
+    },
+    {
+     "refId": "B",
+     "expr": "kube_horizontalpodautoscaler_status_desired_replicas{namespace=\"__NS__\",horizontalpodautoscaler=\"gateway\"}",
+     "legendFormat": "desired"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "type": "timeseries",
+   "title": "Scheduled job results",
+   "gridPos": {
+    "x": 12,
+    "y": 12,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum by (job_name) (kube_job_status_succeeded{namespace=\"__NS__\",job_name=~\"model-verify.*\"})",
+     "legendFormat": "succeeded {{job_name}}"
+    },
+    {
+     "refId": "B",
+     "expr": "sum by (job_name) (kube_job_status_failed{namespace=\"__NS__\",job_name=~\"model-verify.*\"})",
+     "legendFormat": "failed {{job_name}}"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "type": "logs",
+   "title": "Application logs (Loki)",
+   "gridPos": {
+    "x": 0,
+    "y": 20,
+    "w": 24,
+    "h": 10
+   },
+   "datasource": {
+    "type": "loki",
+    "uid": "loki"
+   },
+   "options": {
+    "showTime": true,
+    "wrapLogMessage": true,
+    "sortOrder": "Descending"
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "{namespace=\"__NS__\"} != \"healthz\""
+    }
+   ]
+  }
+ ]
+}
