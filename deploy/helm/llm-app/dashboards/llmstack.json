@@ -104,7 +104,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "sum(rate(http_requests_total{namespace=\"__NS__\",service=\"gateway\",code=~\"5..\"}[5m])) / clamp_min(sum(rate(http_requests_total{namespace=\"__NS__\",service=\"gateway\"}[5m])),1e-9)"
+     "expr": "sum(rate(http_requests_total{namespace=\"__NS__\",service=\"gateway\",route!~\"GET /(healthz|metrics)\",code=~\"5..\"}[5m])) / clamp_min(sum(rate(http_requests_total{namespace=\"__NS__\",service=\"gateway\",route!~\"GET /(healthz|metrics)\"}[5m])),1e-9)"
     }
    ]
   },

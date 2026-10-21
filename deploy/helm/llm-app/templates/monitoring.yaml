@@ -24,19 +24,21 @@ spec:
   groups:
     - name: llmstack.availability
       rules:
+        # Only real API traffic counts: kubelet probes and Prometheus scrapes
+        # always return 200 and would otherwise hide failing user requests.
         - alert: GatewayHighErrorRate
           expr: |
             (
-              sum(rate(http_requests_total{namespace="{{ $ns }}",service="gateway",code=~"5.."}[2m]))
+              sum(rate(http_requests_total{namespace="{{ $ns }}",service="gateway",route!~"GET /(healthz|metrics)",code=~"5.."}[2m]))
               /
-              sum(rate(http_requests_total{namespace="{{ $ns }}",service="gateway"}[2m]))
+              sum(rate(http_requests_total{namespace="{{ $ns }}",service="gateway",route!~"GET /(healthz|metrics)"}[2m]))
             ) > {{ .Values.monitoring.errorRateThreshold }}
           for: 2m
           labels:
             severity: critical
             team: platform
           annotations:
-            summary: "Gateway 5xx ratio above {{ mul .Values.monitoring.errorRateThreshold 100 }}% for 2m"
+            summary: "Gateway 5xx ratio above {{ mulf .Values.monitoring.errorRateThreshold 100 }}% for 2m"
             description: "{{ "{{ $value | humanizePercentage }}" }} of gateway requests are failing in {{ .Values.environment }}."
             runbook_url: "docs/RUNBOOK.md#alert-gatewayhigherrorrate"
         - alert: GatewayDown
